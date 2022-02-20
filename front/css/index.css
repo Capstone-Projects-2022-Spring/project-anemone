@@ -1,0 +1,157 @@
+@import url(reset.css);
+
+/* common css start */
+
+.float-left {
+    float: left;
+}
+
+.float-right {
+    float: right;
+}
+
+.clearfix::after {
+    content: "";
+    display: block;
+    clear: both;
+}
+
+
+/* common css end */
+
+
+/* main start */
+
+#main {
+    width: 300px;
+    padding: 15px 10px;
+    background-color: rgba(0, 0, 0, .08);
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+
+/* main end */
+
+
+/* nav-search start */
+
+#main .nav-search,
+#main .nav-search .search-bar form input {
+    width: 240px;
+    margin: 0 auto;
+}
+
+#main .nav-search {
+    padding: 15px 8px;
+}
+
+#main .nav-search .search-bar {
+    margin-bottom: 25px;
+}
+
+#main .nav-search .search-bar form {
+    position: relative;
+    cursor: pointer;
+}
+
+#main .nav-search .search-bar form input {
+    background-color: rgba(0, 0, 0, .1);
+    height: 25px;
+    padding-left: 30px;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+#main .nav-search .search-bar form::before {
+    content: '';
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background: url(../imgs/icon/search.svg);
+    background-repeat: no-repeat;
+    background-size: contain;
+    left: 5px;
+    top: 3px;
+}
+
+#main .nav-search .nav .extension {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+#main .nav-search .nav .extension a img {
+    width: 20px;
+    height: 20px;
+    margin-right: 15px;
+}
+
+#main .nav-search .nav .extension a:first-child img {
+    background-color: aqua;
+    opacity: 0.8;
+}
+
+#main .nav-search .nav .extension a:last-child img {
+    position: absolute;
+    margin: 0;
+    right: 0px;
+    top: 0px;
+}
+
+#main .nav-search .nav .more .title h2 {
+    font-size: 14px;
+}
+
+#main .nav-search .nav .more .info .list .each .wrapper {
+    padding-left: 50px;
+    margin-top: 25px;
+    position: relative;
+    vertical-align: bottom;
+}
+
+#main .nav-search .nav .more .info .list .each .wrapper::before {
+    content: '';
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background: url(../imgs/icon/angle-circle-right.svg);
+    background-repeat: no-repeat;
+    background-size: contain;
+    margin-right: 18px;
+    left: 0;
+    top: -2px;
+}
+
+#main .nav-search .nav .more .info .list .each .wrapper::after {
+    content: '';
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background: url(../imgs/icon/search.svg);
+    background-repeat: no-repeat;
+    background-size: contain;
+    right: 0px;
+    top: -2px;
+}
+
+#main .nav-search .nav .more .info .list .each .wrapper .name {
+    position: relative;
+    padding-left: 30px;
+}
+
+#main .nav-search .nav .more .info .list .each .wrapper .name::before {
+    content: '';
+    position: absolute;
+    width: 25px;
+    height: 25px;
+    background: url(../imgs/icon/sprite.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: -513px 0px;
+    margin-right: 18px;
+    left: 0;
+    top: -4px;
+}
+
+
+/* nav-search end */
