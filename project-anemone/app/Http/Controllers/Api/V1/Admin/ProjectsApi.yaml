@@ -453,6 +453,8 @@ paths:
         schema:
           $ref: "#/definitions/User"
       responses:
+        204:
+          description: "Updated"
         "400":
           description: "Invalid user supplied"
         "404":
