@@ -44,6 +44,8 @@ paths:
         required: false
         description: Description of file contents.
       responses:
+        204:
+          description: "Uploaded"
         "415":
           description: "Unsupported Media Type"
       security:
