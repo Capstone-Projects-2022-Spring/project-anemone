@@ -475,6 +475,8 @@ paths:
         required: true
         type: "string"
       responses:
+        204:
+          description: "Updated"
         "400":
           description: "Invalid username supplied"
         "404":
