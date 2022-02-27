@@ -489,26 +489,18 @@ paths:
         - application/x-www-form-urlencoded
       summary: Creates and returns a shared link to a file or folder.
       description: |
-          Creates and returns a [shared link](https://www.anemone.com/help) to a file or folder.
+          Creates and returns a [shared link](https://anemone.avalonbloom.com/help) to a file or folder.
           Admin users can set restrictions on shared links; the `visibility` field indicates what
           (if any) restrictions are set on this particular link. Possible values include:
             * `PUBLIC` - anyone can view
             * `TEAM_ONLY` - only the owner's team can view
-            * `SHARED_FOLDER_ONLY` - only [members](https://www.dropbox.com/help/6636) of the enclosing shared folder can view
-          Note that other values may be added at any time.
+            * `SHARED_FOLDER_ONLY` - only [members](http://anemone.avalonbloom.com/help)
       parameters:
         - name: path
           in: path
           type: string
           required: true
-          description: The path to the file or folder you want to link to.
-        - name: short_url
-          in: formData
-          type: boolean
-          required: false
-          description: |
-              When `true` (default), the URL returned will be shortened using the Dropbox URL shortener. If `false`,
-              the URL will link directly to the file's preview page.
+          description: The path to the file or folder you want to link to. The URL will link directly to the file's preview page.
       responses:
         200:
           description: Shared link information.
@@ -545,7 +537,7 @@ responses:
       $ref: '#/definitions/ErrorMessage'
   Unauthorized:
     description: |
-        Bad or expired token. This can happen if the user or Dropbox revoked or expired an access token. To fix,
+        Bad or expired token. This can happen if the user or Anemone revoked or expired an access token. To fix,
         you should re-authenticate the user.
     schema:
       $ref: '#/definitions/ErrorMessage'
@@ -557,7 +549,7 @@ responses:
       $ref: '#/definitions/ErrorMessage'
   SharedFolderForbidden:
     description: |
-        Returned if this app does not have Full Dropbox or File type permissions, or if the user doesn't have
+        Returned if this app does not have Full Anemone or File type permissions, or if the user doesn't have
         access to the specified shared folder.
     schema:
       $ref: '#/definitions/ErrorMessage'
