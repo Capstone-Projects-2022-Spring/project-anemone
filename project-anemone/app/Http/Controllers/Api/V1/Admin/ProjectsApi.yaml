@@ -18,15 +18,7 @@ tags:
   externalDocs:
     description: "Find out more about our content"
     url: "http://swagger.io"
-response:
-  Unauthorized:
-    description: |
-        Bad or expired token. This can happen if the user or Anemone revoked or expired an access token. To fix,
-        you should re-authenticate the user.
-  Forbidden:
-    description: |
-        Bad OAuth request (wrong consumer key, bad nonce, expired timestamp...). Unfortunately, re-authenticating
-        the user won't help here.
+    
 schemes:
 - "https"
 - "http"
@@ -193,7 +185,7 @@ paths:
         description: "List of document object"
         required: true
         schema:
-          type: "list"
+          type: "array"
           items:
             $ref: "#/definitions/Document"
       responses:
@@ -290,7 +282,6 @@ paths:
             $ref: "#/definitions/Annotation"
         "400":
           description: "Invalid Request"
-  /annotation/{annotationId}:
     get:
       tags:
       - "annotation"
@@ -298,44 +289,24 @@ paths:
       description: "For valid response try integer IDs with value >= 1"
       operationId: "getAnnotationById"
       produces:
-      - "application/xml"
       - "application/json"
       parameters:
-      - name: "annotationId"
-        in: "path"
-        description: "ID of annotation that needs to be fetched"
+      - in: "body"
+        name: "body"
+        description: "Adding an annotation"
         required: true
-        type: "integer"
-        maximum: 10.0
-        minimum: 1.0
-        format: "int64"
+        schema:
+          $ref: "#/definitions/Annotation"
+      - in: path
+        name: path
+        type: string
+        required: true
+        description: The path to the file.
       responses:
         "200":
           description: "OK"
           schema:
             $ref: "#/definitions/Annotation"
-        "400":
-          description: "Invalid ID supplied"
-        "404":
-          description: "Annotation not found"
-    delete:
-      tags:
-      - "annotation"
-      summary: "Delete annotation by ID"
-      description: "For valid response try integer IDs with positive integer value.         Negative or non-integer values will generate API errors"
-      operationId: "deleteAnnotation"
-      produces:
-      - "application/xml"
-      - "application/json"
-      parameters:
-      - name: "annotationId"
-        in: "path"
-        description: "ID of the annotation that needs to be deleted"
-        required: true
-        type: "integer"
-        minimum: 1.0
-        format: "int64"
-      responses:
         "400":
           description: "Invalid ID supplied"
         "404":
@@ -553,7 +524,7 @@ paths:
 securityDefinitions:
   docstore_auth:
     type: "oauth2"
-    authorizationUrl: "http://anemone.swagger.io/oauth/dialog"
+    authorizationUrl: "http://anemone.avalonbloom.com/oauth/dialog"
     flow: "implicit"
     scopes:
       write:docs: "modify docs in your account"
@@ -697,7 +668,8 @@ definitions:
       - active
     properties:
       user:
-        $ref: '#/definitions/User'
+        items:
+          $ref: '#/definitions/User'
         description: Short description of a user
       access_type:
         type: string
@@ -715,11 +687,11 @@ definitions:
       id:
         type: string
         description: ID of the shared folder
-      groups:
+      group_ids:
         type: array
         description: Group names e.g. "TempleU Stu", "ElectricBlueFin"
         items:
-          type: string
+          $ref: '#/definitions/Group'
       membership:
         type: array
         description: Members who have access to this folder
@@ -795,10 +767,15 @@ definitions:
             A unique identifier for the current annotation of a file; this field is the same `ant` as elsewhere in
             the API and can be used to detect changes and avoid conflicts.
       shared_folder:
-        $ref: '#/definitions/SharedFolderInfo'
+        items:
+          $ref: '#/definitions/SharedFolderInfo'
         description: |
             This field will be included for shared folders; if the `include_membership` parameter is passed, there will
-            additionally be a `membership` field and a `groups` field.
+            additionally be a `membership` field and a `group` field.
+      group:
+        $ref: '#/definitions/Group'
+      membership:
+        $ref: '#/definitions/MembershipInfo'
       read_only:
         type: boolean
         description: |
