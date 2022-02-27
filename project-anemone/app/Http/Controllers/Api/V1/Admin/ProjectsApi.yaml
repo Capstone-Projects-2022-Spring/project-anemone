@@ -1,16 +1,10 @@
 swagger: "2.0"
 info:
-  description: "This is a draft server Anemone server.  You can find out more about Swagger at [http://swagger.io](http://swagger.io) or on [irc.freenode.net, #swagger](http://swagger.io/irc/). For this sample, you can use the api key `special-key` to test the authorization filters."
+  description: "This is a draft Anemone API specification.  You can find out more about Anemone at [Anemone](http://anemone.avalonbloom.com). For this sample, you can use the api key `special-key` to test the authorization filters."
   version: "1.0.0"
-  title: "Anemone"
-  termsOfService: "http://swagger.io/terms/"
-  contact:
-    email: "apiteam@swagger.io"
-  license:
-    name: "Apache 2.0"
-    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
-host: "anemone.swagger.io"
-basePath: "/v2"
+  title: "Anemone Core API v1"
+host: "anemone.avalonbloom.com"
+basePath: "/V1"
 tags:
 - name: "document"
   description: "Everything about your References"
@@ -230,26 +224,16 @@ paths:
         description: |
               The search string. This string is split (on spaces) into individual words. Files and folders will be
               returned if they contain all words in the search string.
-      - name: "cursorKey"
-        in: "query"
-        description: "Cursor position string indicates where the query should end"
-        required: false
-        type: "string"
-        format: "string"
       - name: include_membership
         in: query
         type: boolean
         required: false
         description: If `true`, metadata for a shared folder will include a list of members and a list of groups.
       responses:
-        "200":
-          description: Latest cursor for specified parameters
+        200:
+          description: List of metadata entries for any matching files and folders.
           schema:
-            $ref: '#/definitions/CursorKey'
-          headers:
-            link:
-              description: A list of relevant content
-              type: string
+            $ref: '#/definitions/SearchResult'
         401:
           $ref: '#/responses/Unauthorized'
         403:
@@ -522,8 +506,50 @@ paths:
           description: "Invalid username supplied"
         "404":
           description: "User not found"
-    
-  
+  /shares/{path}:
+    post:
+      tags:
+        - files
+      consumes:
+        - application/x-www-form-urlencoded
+      summary: Creates and returns a shared link to a file or folder.
+      description: |
+          Creates and returns a [shared link](https://www.anemone.com/help) to a file or folder.
+          Admin users can set restrictions on shared links; the `visibility` field indicates what
+          (if any) restrictions are set on this particular link. Possible values include:
+            * `PUBLIC` - anyone can view
+            * `TEAM_ONLY` - only the owner's team can view
+            * `SHARED_FOLDER_ONLY` - only [members](https://www.dropbox.com/help/6636) of the enclosing shared folder can view
+          Note that other values may be added at any time.
+      parameters:
+        - name: path
+          in: path
+          type: string
+          required: true
+          description: The path to the file or folder you want to link to.
+        - name: short_url
+          in: formData
+          type: boolean
+          required: false
+          description: |
+              When `true` (default), the URL returned will be shortened using the Dropbox URL shortener. If `false`,
+              the URL will link directly to the file's preview page.
+      responses:
+        200:
+          description: Shared link information.
+          schema:
+            $ref: '#/definitions/SharedLinkResult'
+        400:
+          $ref: '#/responses/BadRequest'
+        401:
+          $ref: '#/responses/Unauthorized'
+        403:
+          $ref: '#/responses/Forbidden'
+        404:
+          $ref: '#/responses/NotFound'
+        429:
+          $ref: '#/responses/TooManyRequests'  
+# security 
 securityDefinitions:
   docstore_auth:
     type: "oauth2"
@@ -536,7 +562,74 @@ securityDefinitions:
     type: "apiKey"
     name: "api_key"
     in: "header"
+# Error responses
+responses:
+  BadRequest:
+    description: Bad input parameter. Error message should indicate which one and why.
+    schema:
+      $ref: '#/definitions/ErrorMessage'
+  Unauthorized:
+    description: |
+        Bad or expired token. This can happen if the user or Dropbox revoked or expired an access token. To fix,
+        you should re-authenticate the user.
+    schema:
+      $ref: '#/definitions/ErrorMessage'
+  Forbidden:
+    description: |
+        Bad OAuth request (wrong consumer key, bad nonce, expired timestamp...). Unfortunately, re-authenticating
+        the user won't help here.
+    schema:
+      $ref: '#/definitions/ErrorMessage'
+  SharedFolderForbidden:
+    description: |
+        Returned if this app does not have Full Dropbox or File type permissions, or if the user doesn't have
+        access to the specified shared folder.
+    schema:
+      $ref: '#/definitions/ErrorMessage'
+  NotFound:
+    description: File or folder not found at the specified path.
+    schema:
+      $ref: '#/definitions/ErrorMessage'
+  FileNotFound:
+    description: File not found at the specified path, or unable to find the revision at that path.
+    schema:
+      $ref: '#/definitions/ErrorMessage'
+  NotAcceptable:
+    description: |
+        Too many files would be involved in the operation for it to complete successfully. The limit is
+        currently 10,000 files and folders.
+    schema:
+      $ref: '#/definitions/ErrorMessage'
+  TooManyRequests:
+    description: |
+        Your app is making too many requests and is being rate limited. 429s can trigger on a per-app or
+        per-user basis.
+    schema:
+      $ref: '#/definitions/ErrorMessage'
+
 definitions:
+  ErrorMessage:
+    type: object
+    required:
+      - error
+    properties:
+      error:
+        type: string
+        description: Error description
+  
+  Group:
+    type: object
+    required:
+      - name
+      - group_id
+    properties:
+      name:
+        type: string
+        description: The name of the group the user belongs to
+      group_id:
+        type: string
+        description: The ID of the group the user belongs to
+  
   Annotation:
     type: "object"
     properties:
@@ -559,6 +652,7 @@ definitions:
         - "edited"
     xml:
       name: "Annotation"
+  
   User:
     type: "object"
     properties:
@@ -578,8 +672,12 @@ definitions:
       userStatus:
         type: "string"
         description: "User type Admin or Custodian"
+      group:
+        $ref: '#/definitions/Group'
+        description: If the user belongs to a group, contains group information; otherwise, `null`
     xml:
       name: "User"
+  
   Tag:
     type: "object"
     properties:
@@ -590,6 +688,7 @@ definitions:
         type: "string"
     xml:
       name: "Tag"
+  
   MembershipInfo:
     type: object
     required:
@@ -606,6 +705,7 @@ definitions:
       active:
         type: boolean
         description: Indicates whether membership is active or not
+  
   SharedFolderInfo:
     type: object
     required:
@@ -625,14 +725,7 @@ definitions:
         description: Members who have access to this folder
         items:
           $ref: '#/definitions/MembershipInfo'
-  CursorKey:
-    type: object
-    required:
-      - cursor
-    properties:
-      cursor:
-        type: string
-        description: A string that encodes the latest state, as would be returned by `/document/search` when `has_more` is `false`.
+  
   Document:
     type: "object"
     required:
@@ -667,16 +760,81 @@ definitions:
         - "unvisited"
     xml:
       name: "document"
-  ApiResponse:
-    type: "object"
+  
+  FileMetadata:
+    type: object
+    required:
+      - size
+      - bytes
+      - path
+      - is_dir
+      - ant
+      - modified
+      - root
+      - annotation
     properties:
-      code:
-        type: "integer"
-        format: "int32"
-      type:
-        type: "string"
-      message:
-        type: "string"
+      size:
+        type: string
+        description: A human-readable description of the file size
+      bytes:
+        type: integer
+        format: int64
+        description: The file size in bytes
+      path:
+        type: string
+        description: Returns the canonical path to the file or folder
+      is_dir:
+        type: boolean
+        description: Whether the given entry is a folder or not
+      is_deleted:
+        type: boolean
+        description: Whether the given entry is deleted (only included if deleted files are being returned)
+      ant:
+        type: string
+        description: |
+            A unique identifier for the current annotation of a file; this field is the same `ant` as elsewhere in
+            the API and can be used to detect changes and avoid conflicts.
+      shared_folder:
+        $ref: '#/definitions/SharedFolderInfo'
+        description: |
+            This field will be included for shared folders; if the `include_membership` parameter is passed, there will
+            additionally be a `membership` field and a `groups` field.
+      read_only:
+        type: boolean
+        description: |
+            For shared folders, this field specifies whether the user has read-only access to the folder; for files
+            within a shared folder, this specifies the read-only status of the parent shared folder
+      modified:
+        type: string
+        description: |
+            The last time the file was modified on Anemone, in the standard
+            [date format](http://anemone.avalonbloom.com/developers/core/docs#date-format)
+      annotation:
+        type: integer
+        description: A field that semi-uniquely identifies a file; use ant instead
+  
+  SearchResult:
+    description: List of metadata entries for any matching files and folders.
+    type: array
+    items:
+      $ref: '#/definitions/FileMetadata'
+
+  SharedLinkResult:
+    type: object
+    required:
+      - url
+    properties:
+      url:
+        type: string
+        description: Actual shared link URL
+      visibility:
+        type: string
+        enum:
+          - PUBLIC
+          - TEAM_ONLY
+          - SHARED_FOLDER_ONLY
+        description: Indicates what (if any) restrictions are set on this particular link
+        
 externalDocs:
-  description: "Find out more about Swagger"
-  url: "http://swagger.io"
+  description: "Find out more about Anemone"
+  url: "http://anemone.avalonbloom.com/"
