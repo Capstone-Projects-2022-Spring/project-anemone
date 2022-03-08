@@ -1,4 +1,5 @@
-﻿<html class=" webkit chrome win js webkit chrome win js webkit chrome win js">
+﻿<!DOCTYPE html>
+<html class=" webkit chrome win js webkit chrome win js webkit chrome win js">
 
 <head>
 
@@ -136,14 +137,19 @@
                             <p>
                                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam sem purus, interdum a mi eget.
                             </p>
-                            <form action="checkout-2.html" method="post">
+                            <form action="{{ route('checkout-1') }}" method="post">
+                                @csrf
                                 <div class="control-group">
 
                                     <div class="controls">
                                         <div class="form-label ">Email</div>
 
                                         <input type="text" name="email" class="required span12 cusmo-input">
+                                        @error('email')
+                                            <div class ="text-red-500 mt-2 text-sm">
+                                                {{ $message }}
 
+                                        @enderror
                                     </div>
                                 </div>
 
@@ -152,7 +158,12 @@
                                     <div class="controls">
                                         <div class="form-label ">Name</div>
 
-                                        <input type="text" name="email" class="required span12 cusmo-input">
+                                        <input type="text" name="name" class="required span12 cusmo-input">
+                                        @error('name')
+                                            <div class ="text-red-500 mt-2 text-sm">
+                                                {{ $message }}
+
+                                        @enderror
 
                                     </div>
                                 </div>
@@ -162,6 +173,11 @@
                                         <div class="form-label ">Password</div>
 
                                         <input type="password" name="password" class="required span12 cusmo-input">
+                                        @error('password')
+                                            <div class ="text-red-500 mt-2 text-sm">
+                                                {{ $message }}
+
+                                        @enderror
 
                                     </div>
                                 </div>
@@ -170,7 +186,12 @@
                                     <div class="controls">
                                         <div class="form-label ">Re-Password</div>
 
-                                        <input type="password" name="repassword" class="required span12 cusmo-input">
+                                        <input type="password" name="password_confirmation" class="required span12 cusmo-input">
+                                        @error('password_confirmation')
+                                            <div class ="text-red-500 mt-2 text-sm">
+                                                {{ $message }}
+
+                                        @enderror
 
                                     </div>
                                 </div>
