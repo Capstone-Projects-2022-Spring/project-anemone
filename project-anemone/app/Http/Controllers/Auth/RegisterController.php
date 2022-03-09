@@ -7,8 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 
-class RegisterController extends Controller
-{
+class RegisterController extends Controller{
     public function index(){
         return view('checkout-1');
     }
@@ -29,5 +28,13 @@ class RegisterController extends Controller
         'email' => $request->email,
         'password' => Hash::make($request->password),
         ]);
+        
+        auth()->attempt([
+            'email' => $request->email,
+            'password' => $request->password
+        ]);
+
+        //redirect
+        return redirect()->route('index');
     }
 }
