@@ -14,17 +14,13 @@
     <link href="../css/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="../css/bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet">
     <link href="../css/font-awesome/css/font-awesome.min.css" rel="stylesheet">
-
     <link href="../css/icheck/minimal/yellow.css" rel="stylesheet">
-
-
     <!--[if IE 7]>
       
         <link href="css/font-awesome/css/font-awesome-ie7.min.css" rel="stylesheet">
         
-        <![endif]-->
+        <![endif]-->    
     <link rel="stylesheet" href="../css/style.css">
-
     <link rel="stylesheet" href="../css/responsive.css">
 
 
@@ -107,7 +103,7 @@
 
                                     </div>
                                 </div>
-                                <div class="rememberme">
+                                <!-- <div class="rememberme">
                                     <div class="icheckbox_minimal-yellow" style="position: relative;">
                                         <div class="icheckbox_minimal-yellow" style="position: relative;">
                                             <div class="icheckbox_minimal-yellow" style="position: relative;">
@@ -116,7 +112,7 @@
                                             </div><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins></div>
                                         <ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins>
                                     </div> Remember me
-                                </div>
+                                </div> -->
                                 <div class="forget-password">
                                     <a href="#">Forgot your password?</a>
                                 </div>
@@ -156,9 +152,23 @@
                                 <div class="control-group">
 
                                     <div class="controls">
-                                        <div class="form-label ">Name</div>
+                                        <div class="form-label ">Full Name</div>
 
                                         <input type="text" name="name" class="required span12 cusmo-input">
+                                        @error('name')
+                                            <div class ="text-red-500 mt-2 text-sm">
+                                                {{ $message }}
+
+                                        @enderror
+
+                                    </div>
+                                </div>
+                                <div class="control-group">
+
+                                    <div class="controls">
+                                        <div class="form-label ">User Name</div>
+
+                                        <input type="text" name="username" class="required span12 cusmo-input">
                                         @error('name')
                                             <div class ="text-red-500 mt-2 text-sm">
                                                 {{ $message }}
