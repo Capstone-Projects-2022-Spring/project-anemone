@@ -6,6 +6,14 @@ use App\Http\Controllers\Controller;
 use App\Repositories\UserRepository;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
+
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Redirect;
+
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
  
 /**
 *the UserController needs to retrieve users from a data source
@@ -68,4 +76,51 @@ class UserController extends Controller
 
         }
     }
+
+    // user login view
+    public function userLoginIndex()
+    {
+        return view('login');
+    }
+
+    //user login
+    public function userPostLogin(Request $request)
+    {
+
+        $request->validate([
+            "email"           =>    "required|email",
+            "password"        =>    "required|min:6"
+        ]);
+
+        $userCredentials = $request->only('email', 'password');
+
+        // check user using auth function
+        if (Auth::attempt($userCredentials)) {
+            return redirect()->intended('dashboard');
+        } else {
+            return back()->with('error', 'Invalid username or password entered.');
+        }
+    }
+
+    // user dashboard
+    public function dashboard()
+    {
+
+        // check if user logged in
+        if (Auth::check()) {
+            return view('dashboard');
+        }
+
+        return redirect::to("user-login")->withSuccess('Sorry! You do not have access');
+    }
+
+
+    // user logout
+    public function logout(Request $request)
+    {
+        $request->session()->flush();
+        Auth::logout();
+        return Redirect('user-login');
+    }
+
 }
