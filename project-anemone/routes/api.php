@@ -35,7 +35,7 @@ Route::middleware('auth:sanctum')->post('/user/[]', function(Request $request){
   return $request->create_user_array();
 });
 
-Route::middleware('auth:sanctum')->get('/user/logout', function(Request $request){
+Route::middleware('auth:sanctum')->post('/user/logout', function(Request $request){
   return $request->logout();
 });
 
@@ -44,7 +44,7 @@ Route::middleware('auth:sanctum')->get('/user/{username}', function(Request $req
 });
 
 Route::middleware('auth:sanctum')->put('/user/{username}', function(Request $request){
-  return $request->get_username_by_username();
+  return $request->update_username_by_username();
 });
 
 Route::middleware('auth:sanctum')->delete('/user/{username}', function(Request $request){
