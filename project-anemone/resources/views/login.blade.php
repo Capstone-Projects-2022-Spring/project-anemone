@@ -86,7 +86,7 @@
 
         <div class="container">
             <label for="email"><b>Username</b></label>
-            <input type="text" placeholder="Enter Username" name="email" required>
+            <input type="text" placeholder="Enter Username/email" name="email" required>
             @error('email')
             <div class="text-red-500 mt-2 text-sm">
                 {{ $message }}
