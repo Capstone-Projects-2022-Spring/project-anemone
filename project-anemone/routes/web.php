@@ -58,3 +58,11 @@ Route::get('/document/search/{path}', [DocumentController::class, 'search_docume
 // annotation endpoint
 
 // shared link result endpoint
+
+Route::get('user-login', 'UserController@userLoginIndex');
+
+Route::post('login', 'UserController@userPostLogin');
+
+Route::get('dashboard', 'UserController@dashboard');
+
+Route::get('logout', 'UserController@logout');
