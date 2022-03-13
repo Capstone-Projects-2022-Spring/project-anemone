@@ -19,7 +19,7 @@
                 <div class="nav">
                     <div class="extension">
                         <a href="#">
-                            <img src="../imgs/icon/list.svg" alt="">
+                            //<img src="../imgs/icon/list.svg" alt="">
                         </a>
                         <a href="#">
                             <img src="../imgs/icon/symbol.png" alt="">

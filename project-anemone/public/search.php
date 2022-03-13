@@ -18,16 +18,14 @@
                 </div>
                 <div class="nav">
                     <div class="extension">
-                        <a href="#">
-                            <img src="../imgs/icon/list.svg" alt="">
+                        <a href="login" title="log in">
+                            <img src="../imgs/icon/user.png" alt=""><p>user name</p>
                         </a>
-                        <a href="#">
-                            <img src="../imgs/icon/symbol.png" alt="">
-                        </a>
-                        <a href="#">
+                        
+                        <!-- <a href="#" title="add a note">
                             <img src="../imgs/icon/book-alt.svg" alt="">
-                        </a>
-                        <a href="#">
+                        </a> -->
+                        <a href="note" title="add a note">
                             <img src="../imgs/icon/plus.svg" alt="">
                         </a>
                     </div>

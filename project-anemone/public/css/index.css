@@ -57,7 +57,7 @@
 
 #main .nav-search .search-bar form input {
     background-color: rgba(0, 0, 0, .1);
-    height: 25px;
+    height: 35px;
     padding-left: 30px;
     border-radius: 5px;
     box-sizing: border-box;
@@ -72,22 +72,21 @@
     background-repeat: no-repeat;
     background-size: contain;
     left: 5px;
-    top: 3px;
+    top: 6px;
 }
 
 #main .nav-search .nav .extension {
     position: relative;
-    margin-bottom: 20px;
+    margin-bottom: 30px;
 }
 
 #main .nav-search .nav .extension a img {
-    width: 20px;
-    height: 20px;
-    margin-right: 15px;
+    width: 30px;
+    height: 30px;
+    margin-right: 10px;
 }
 
 #main .nav-search .nav .extension a:first-child img {
-    background-color: aqua;
     opacity: 0.8;
 }
 
