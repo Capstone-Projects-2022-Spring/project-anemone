@@ -8,6 +8,10 @@ use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 
 class RegisterController extends Controller{
+
+    public function __construct(){
+        $this->middleware(['auth', 'verified']);
+    }
     public function index(){
         return view('checkout-1');
     }
@@ -22,12 +26,13 @@ class RegisterController extends Controller{
         ]);
 
         //store
-        User::create([
+        $user = User::create([
         'name' => $request->name,
         //'username' => $request->username,
         'email' => $request->email,
         'password' => Hash::make($request->password),
         ]);
+        $user->sendEmailVerificationNotification();
         
         auth()->attempt([
             'email' => $request->email,

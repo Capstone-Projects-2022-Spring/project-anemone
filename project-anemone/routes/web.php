@@ -19,6 +19,12 @@ use App\Http\Controllers\IndexController;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Auth::routes(['verify' => true]);
+
+Route::get('/', function () {
+    return view('checkout-1');
+});
+
 Route::get('/index', [IndexController::class, 'index'])->name('index');
 
 Route::get('/checkout-1', [RegisterController::class, 'index'])->name('checkout-1');
@@ -26,10 +32,6 @@ Route::post('/checkout-1', [RegisterController::class, 'register_user']);
 
 Route::get('/login', [LoginController::class, 'index'])->name('login');
 Route::post('/login', [LoginController::class, 'sign_in']);
-
-Route::get('/', function () {
-    return view('login');
-});
 
 // HTTP verb responses setup
 // Route::httpverb($uri, $callback);
@@ -56,5 +58,3 @@ Route::post('/document/[]', [DocumentController::class, 'create_document_list'])
 Route::get('/document/search/{path}', [DocumentController::class, 'search_documents_by_query']);
 
 // annotation endpoint
-
-// shared link result endpoint
