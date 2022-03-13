@@ -18,7 +18,7 @@ class AuthController extends Controller
      */
     public function index()
     {
-        return view('auth.login');
+        return view('login');
     }
 
     /**
@@ -28,7 +28,7 @@ class AuthController extends Controller
      */
     public function registration()
     {
-        return view('auth.register');
+        return view('checkout-1');
     }
 
     /**
@@ -48,10 +48,10 @@ class AuthController extends Controller
         if (Auth::attempt($credentials)) {
 
             return redirect()->intended('dashboard')
-                ->withSuccess('You have Successfully logged in');
+                ->withSuccess('You have Successfully logged in.');
         }
 
-        return redirect("login")->withSuccess('Sorry! You have entered invalid credentials');
+        return redirect("login")->withSuccess('Try again. Wrong information entered.');
     }
 
     /**
@@ -70,7 +70,7 @@ class AuthController extends Controller
         $data = $request->all();
         $check = $this->create($data);
 
-        return redirect("login")->withSuccess('Great! please login.');
+        return redirect("login")->withSuccess('Registration complete! Please login.');
     }
 
     /**
@@ -84,7 +84,7 @@ class AuthController extends Controller
             return view('dashboard');
         }
 
-        return redirect("login")->withSuccess('Opps! You do not have access');
+        return redirect("login")->withSuccess('Sorry! You do not have access');
     }
 
     /**

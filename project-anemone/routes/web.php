@@ -23,7 +23,7 @@ use App\Http\Controllers\IndexController;
 
 Route::get('login', [AuthController::class, 'index'])->name('login');
 Route::post('submit-login', [AuthController::class, 'postLogin'])->name('login.post');
-Route::get('registration', [AuthController::class, 'registration'])->name('register');
+Route::get('checkout-1', [AuthController::class, 'registration'])->name('checkout-1');
 Route::post('submit-registration', [AuthController::class, 'postRegistration'])->name('register.post');
 Route::get('dashboard', [AuthController::class, 'dashboard']);
 Route::get('logout', [AuthController::class, 'logout'])->name('logout');

@@ -78,7 +78,7 @@
 
     <h2>Anemone Login</h2>
 
-    <form action="{{ route('login') }}" method="post">
+    <form action="{{ route('login.post') }}" method="post">
         @csrf
         <div class="imgcontainer">
             <img src="anemone.png" alt="Avatar" class="avatar">
