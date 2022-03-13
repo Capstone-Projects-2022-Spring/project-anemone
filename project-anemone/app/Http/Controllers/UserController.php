@@ -10,13 +10,13 @@ use Illuminate\Support\Facades\DB;
  
 /**
 *the UserController needs to retrieve users from a data source
-*where we inject a svc capable of retrieving users from the db
+*where we inject a service capable of retrieving users from the db
 *note: we can swap Eloquent injector with another
 */
 class UserController extends Controller
 {
     /**
-     * The user repository implementation.
+     * The user implementation.
      *
      * @var User
      */
@@ -109,10 +109,11 @@ class UserController extends Controller
         $name=$_REQUEST['name'];
         $password=$_REQUEST['password'];
         $date_joined=$_REQUEST[SQL_TIMESTAMP];
-
-        DB::table('users')->insert([
-            ['email'=>$email, 'name'=>$name,'password'=>$password,'date_joined'=>$date_joined]
-        ]);
+        foreach($_REQUEST as $request){
+            DB::table('users')->insert([
+                ['email'=>$email, 'name'=>$name,'password'=>$password,'date_joined'=>$date_joined]
+            ]);
+        }
     }
 
     public function logout(Request $request) {
