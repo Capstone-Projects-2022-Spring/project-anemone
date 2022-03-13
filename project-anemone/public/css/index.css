@@ -154,3 +154,59 @@
 
 
 /* nav-search end */
+
+/* display start */
+#display .note-form{
+    width: 300px;
+    text-align: center;
+    box-sizing: border-box;
+    padding: 0;
+    position:absolute;
+    top: 50%;
+    right: 50px;
+}
+
+#display .note-form input[type=text]{
+    width: 200px;
+    height: 24px;
+    box-sizing: border-box;
+    outline: 1px solid rgba(0,0,0,.72);
+    border-radius: 5px;    
+    margin: 10px auto;
+}
+
+#display .note-form .addbtn{
+    color: rgba(0,0,0,.72);
+    width: 48px;
+    border-radius:5px;
+    font-size: 24px;
+    font-weight: bold;
+    line-height: 24px;
+}
+#display .note-form .addbtn:hover{
+    cursor: pointer;
+}
+#display .note-form div{
+    position: relative;
+    vertical-align: baseline;
+}
+#display .note-form p {
+    display: inline-block;
+    border: 1px solid orangered;
+    opacity: 0.5;
+    font-size: 16px;
+    width: 250px;
+    overflow-y: auto;
+    margin-bottom: 10px;
+    border-radius: 10px;
+}
+ #display .note-form div input{
+    position: absolute;
+    border: 1px solid red;
+    border-radius: 50%;
+    padding: 3px;
+    top:20%;
+    right: -10%;
+    cursor: pointer;
+}
+/* display end */

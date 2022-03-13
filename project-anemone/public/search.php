@@ -25,9 +25,6 @@
                         <!-- <a href="#" title="add a note">
                             <img src="../imgs/icon/book-alt.svg" alt="">
                         </a> -->
-                        <a href="note" title="add a note">
-                            <img src="../imgs/icon/plus.svg" alt="">
-                        </a>
                     </div>
                     <div class="more">
                         <div class="title">
@@ -116,7 +113,15 @@
                 </div>
             </div>
         </div>
-        <div id="display" class="float-right"></div>
+        <div id="display" class="float-right">
+            <form class="note-form" action="">
+                <input class="note-info" type="text" name="note-lable">
+                <input class="addbtn" type="submit" value="add">
+                <div><p class="note1">node 1:Lorem ipsum dolor sit amet.</p><input type="submit" value="delete"></div>
+                <div><p class="note2">node 1:Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet.Lorem ipsum dolor sit amet.s</p><input type="submit" value="delete"></div>
+                <div><p class="note1">node 1:Lorem ipsum dolor sit amet.</p><input type="submit" value="delete"></div>
+            </form>
+        </div>
     </div>
 </body>
 
