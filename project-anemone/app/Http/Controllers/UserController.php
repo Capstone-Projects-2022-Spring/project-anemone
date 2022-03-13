@@ -120,7 +120,7 @@ class UserController extends Controller
     {
         $request->session()->flush();
         Auth::logout();
-        return Redirect('user-login');
+        return redirect('/login');
     }
 
 }

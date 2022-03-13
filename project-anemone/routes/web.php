@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\AuthController;
 // use App\Http\Controllers\DocumentController;
 // use App\Http\Controllers\AnnotationController;
 use Illuminate\Support\Facades\Route;
@@ -19,18 +20,19 @@ use App\Http\Controllers\IndexController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/index', [IndexController::class, 'index'])->name('index');
 
-Route::get('/checkout-1', [RegisterController::class, 'index'])->name('checkout-1');
-Route::post('/checkout-1', [RegisterController::class, 'register_user']);
+Route::get('login', [AuthController::class, 'index'])->name('login');
+Route::post('submit-login', [AuthController::class, 'postLogin'])->name('login.post');
+Route::get('registration', [AuthController::class, 'registration'])->name('register');
+Route::post('submit-registration', [AuthController::class, 'postRegistration'])->name('register.post');
+Route::get('dashboard', [AuthController::class, 'dashboard']);
+Route::get('logout', [AuthController::class, 'logout'])->name('logout');
 
-Route::get('/login', [LoginController::class, 'index'])->name('login');
-Route::post('/login', [LoginController::class, 'sign_in']);
-
-Route::get('/', function () {
-    return view('login');
-});
-
+///////////
+// Route::get('/', function () {
+//     return view('dashboard');
+// });
+///////////
 // HTTP verb responses setup
 // Route::httpverb($uri, $callback);
 
@@ -39,7 +41,7 @@ Route::get('/user', [UserController::class, 'index']);
 Route::post('/user', [UserController::class, 'create_user']);
 Route::post('/user/[]', [UserController::class, 'create_user_array']);
 Route::get('/user/login', [UserController::class, 'login']);
-Route::get('/user/logout', [UserController::class, 'logout']);
+Route::get('/user/login', [UserController::class, 'login']);
 Route::get('/user/{username}', [UserController::class, 'get_username']);
 Route::put('/user/{username}', [UserController::class, 'update_user_by_username']);
 Route::delete('/user/{username}', [UserController::class, 'delete_user']);
@@ -59,10 +61,10 @@ Route::get('/document/search/{path}', [DocumentController::class, 'search_docume
 
 // shared link result endpoint
 
-Route::get('user-login', 'UserController@userLoginIndex');
 
-Route::post('login', 'UserController@userPostLogin');
 
-Route::get('dashboard', 'UserController@dashboard');
+//Route::get('/dashboard', 'UserController@dashboard');
+//Route::get('/dashboard', [UserController::class, 'index']);
 
-Route::get('logout', 'UserController@logout');
+//Route::get('logout', 'UserController@logout');
+
