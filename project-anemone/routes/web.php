@@ -6,7 +6,9 @@ use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Controllers\IndexController;
+use App\Http\Controllers\DashboardController;
 
 
 /*
@@ -26,6 +28,8 @@ Route::post('/checkout-1', [RegisterController::class, 'register_user']);
 
 Route::get('/login', [LoginController::class, 'index'])->name('login');
 Route::post('/login', [LoginController::class, 'sign_in']);
+
+Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
 Route::post('/logout', [LogoutController::class, 'log_out'])->name('logout');
 
