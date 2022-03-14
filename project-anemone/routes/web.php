@@ -27,6 +27,8 @@ Route::post('/checkout-1', [RegisterController::class, 'register_user']);
 Route::get('/login', [LoginController::class, 'index'])->name('login');
 Route::post('/login', [LoginController::class, 'sign_in']);
 
+Route::post('/logout', [LogoutController::class, 'log_out'])->name('logout');
+
 Route::get('/', function () {
     return view('login');
 });
