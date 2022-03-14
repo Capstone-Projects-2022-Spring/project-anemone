@@ -9,10 +9,6 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Auth\Events\Registered;
 
 class RegisterController extends Controller{
-
-    public function __construct(){
-        $this->middleware(['auth', 'verified']);
-    }
     public function index(){
         return view('checkout-1');
     }
