@@ -19,8 +19,6 @@ use App\Http\Controllers\IndexController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Auth::routes(['verify' => true]);
-
 Route::get('/', function () {
     return view('checkout-1');
 });
@@ -29,6 +27,8 @@ Route::get('/index', [IndexController::class, 'index'])->name('index');
 
 Route::get('/checkout-1', [RegisterController::class, 'index'])->name('checkout-1');
 Route::post('/checkout-1', [RegisterController::class, 'register_user']);
+
+Auth::routes(['verify' => true]);
 
 Route::get('/login', [LoginController::class, 'index'])->name('login');
 Route::post('/login', [LoginController::class, 'sign_in']);
