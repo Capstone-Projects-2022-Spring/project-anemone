@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Auth\Events\Registered;
 
 class RegisterController extends Controller{
 
@@ -32,7 +33,7 @@ class RegisterController extends Controller{
         'email' => $request->email,
         'password' => Hash::make($request->password),
         ]);
-        $user->sendEmailVerificationNotification();
+        event(new Registered($user));
         
         auth()->attempt([
             'email' => $request->email,
