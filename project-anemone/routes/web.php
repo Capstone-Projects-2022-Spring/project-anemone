@@ -74,3 +74,5 @@ Route::post('/document/[]', [DocumentController::class, 'create_document_list'])
 Route::get('/document/search/{path}', [DocumentController::class, 'search_documents_by_query']);
 
 // annotation endpoint
+
+// shared link result endpoint
