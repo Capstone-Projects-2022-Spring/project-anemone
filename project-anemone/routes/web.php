@@ -31,7 +31,8 @@ Route::post('/login', [LoginController::class, 'sign_in']);
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
-Route::post('/logout', [LogoutController::class, 'log_out'])->name('logout');
+Route::get('/logout', [LogoutController::class, 'log_out'])->name('logout');
+Route::post('/logout', [LogoutController::class, 'log_out']);
 
 Route::get('/', function () {
     return view('login');
