@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\IndexController;
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
+use Illuminate\Http\Request;
 
 
 /*
@@ -19,17 +21,33 @@ use App\Http\Controllers\IndexController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/index', [IndexController::class, 'index'])->name('index');
+Route::get('/', function () {
+    return view('checkout-1');
+});
+
+Route::get('/index', [IndexController::class, 'index'])->name('index')->middleware('auth', 'verified');
 
 Route::get('/checkout-1', [RegisterController::class, 'index'])->name('checkout-1');
 Route::post('/checkout-1', [RegisterController::class, 'register_user']);
 
+Route::get('/email/verify', function () {
+    return view('auth.verify');
+})->middleware('auth')->name('verification.notice');
+
+Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
+    $request->fulfill();
+ 
+    return redirect('/index');
+})->middleware(['auth', 'signed'])->name('verification.verify');
+
+Route::post('/email/verification-notification', function (Request $request) {
+    $request->user()->sendEmailVerificationNotification();
+ 
+    return back()->with('message', 'Verification link sent!');
+})->middleware(['auth', 'throttle:6,1'])->name('verification.send');
+
 Route::get('/login', [LoginController::class, 'index'])->name('login');
 Route::post('/login', [LoginController::class, 'sign_in']);
-
-Route::get('/', function () {
-    return view('login');
-});
 
 // HTTP verb responses setup
 // Route::httpverb($uri, $callback);
