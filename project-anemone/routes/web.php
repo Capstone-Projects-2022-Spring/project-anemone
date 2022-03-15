@@ -6,10 +6,11 @@ use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Controllers\IndexController;
+use App\Http\Controllers\DashboardController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
-
 
 /*
 |--------------------------------------------------------------------------
@@ -48,6 +49,15 @@ Route::post('/email/verification-notification', function (Request $request) {
 
 Route::get('/login', [LoginController::class, 'index'])->name('login');
 Route::post('/login', [LoginController::class, 'sign_in']);
+
+Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard')->middleware('auth', 'verified');
+
+Route::get('/logout', [LogoutController::class, 'log_out'])->name('logout');
+Route::post('/logout', [LogoutController::class, 'log_out']);
+
+Route::get('/', function () {
+    return view('login');
+});
 
 // HTTP verb responses setup
 // Route::httpverb($uri, $callback);

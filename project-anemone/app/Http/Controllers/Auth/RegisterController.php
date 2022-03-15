@@ -37,6 +37,6 @@ class RegisterController extends Controller{
         ]);
 
         //redirect
-        return redirect()->route('index');
+        return redirect()->route('dashboard');
     }
 }

@@ -20,7 +20,7 @@
                 <div id="navbarCollapse" class="collapse navbar-collapse">
                     <ul class="nav navbar-nav">
                         <li class="nav-item">
-                            <a href="#" class="nav-link">Documents</a>
+                            <a href="{{ route('index') }}" class="nav-link">Documents</a>
                         </li>
                         <li class="nav-item">
                             <a href="#" class="nav-link">Profile</a>
@@ -28,13 +28,13 @@
                     </ul>
                     <ul class="nav navbar-nav ms-auto">
                         <li class="nav-item dropdown">
-                            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Account</a>
+                            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">{{ auth()->user()->name }}</a>
                             <div class="dropdown-menu dropdown-menu-end">
                                 <a href="#" class="dropdown-item">Groups</a>
                                 <a href="#" class="dropdown-item">History</a>
                                 <a href="#" class="dropdown-item">Settings</a>
                                 <div class="dropdown-divider"></div>
-                                <a href="#" class="dropdown-item">Logout</a>
+                                <a href="{{ route('logout') }}" class="dropdown-item">Logout</a>
                             </div>
                         </li>
                     </ul>

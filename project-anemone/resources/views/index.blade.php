@@ -19,7 +19,7 @@
                 <div class="nav">
                     <div class="extension">
                         <a href="login" title="log in">
-                            <img src="../imgs/icon/user.png" alt=""><p>user name</p>
+                            <img src="../imgs/icon/user.png" alt="">{{ auth()->user()->name }}
                         </a>
                         
                         <!-- <a href="#" title="add a note">
