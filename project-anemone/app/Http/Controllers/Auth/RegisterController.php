@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Auth\Events\Registered;
 
 class RegisterController extends Controller{
     public function index(){
@@ -22,12 +23,13 @@ class RegisterController extends Controller{
         ]);
 
         //store
-        User::create([
+        $user = User::create([
         'name' => $request->name,
         //'username' => $request->username,
         'email' => $request->email,
         'password' => Hash::make($request->password),
         ]);
+        event(new Registered($user));
         
         auth()->attempt([
             'email' => $request->email,
