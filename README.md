@@ -11,7 +11,7 @@ Our software is primarily designed to help people who are interested in programm
 *C. Sun, F. Imadegbelo, F. Johnston, T. Rowe, W. Zhai*
 
 ## Current Release 
-[v1.0.0]
+[v1.0.0](https://github.com/Capstone-Projects-2022-Spring/project-anemone/releases)
 
 ## Installation
 Via Composer(https://getcomposer.org/doc/00-intro.md)
