@@ -23,13 +23,13 @@ use Illuminate\Http\Request;
 |
 */
 Route::get('/', function () {
-    return view('checkout-1');
+    return view('register');
 });
 
 Route::get('/index', [IndexController::class, 'index'])->name('index')->middleware('auth', 'verified');
 
-Route::get('/checkout-1', [RegisterController::class, 'index'])->name('checkout-1');
-Route::post('/checkout-1', [RegisterController::class, 'register_user']);
+Route::get('/register', [RegisterController::class, 'index'])->name('register');
+Route::post('/register', [RegisterController::class, 'register_user']);
 
 Route::get('/email/verify', function () {
     return view('auth.verify');

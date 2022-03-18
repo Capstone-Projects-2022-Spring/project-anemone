@@ -133,7 +133,7 @@
                             <p>
                                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam sem purus, interdum a mi eget.
                             </p>
-                            <form action="{{ route('checkout-1') }}" method="post">
+                            <form action="{{ route('register') }}" method="post">
                                 @csrf
                                 <div class="control-group">
 

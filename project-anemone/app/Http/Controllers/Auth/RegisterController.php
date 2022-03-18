@@ -10,7 +10,7 @@ use Illuminate\Auth\Events\Registered;
 
 class RegisterController extends Controller{
     public function index(){
-        return view('checkout-1');
+        return view('register');
     }
 
     public function register_user(Request $request){
