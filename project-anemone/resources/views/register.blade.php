@@ -5,7 +5,7 @@
 
     <!--[if lt IE 9]>
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
-    <title>Anemone</title>
+    <title>Anemone Register</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 
@@ -19,131 +19,41 @@
       
         <link href="css/font-awesome/css/font-awesome-ie7.min.css" rel="stylesheet">
         
-        <![endif]-->    
+        <![endif]-->
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../css/responsive.css">
 
-
 </head>
+<section style="background-color: #FFFFFF;">
 
-<body>
-    <div class="wrapper">
+    <body>
+        <h2>Anemone Register</h2>
         <section class="section-head">
             <div class="container">
-                <div class="row-fluid top-row">
-                    <div class="span4 logo-holder">
-                        <div class="logo">
-                            <span class="icon">
-                                    <img alt="" src="../imgs/icon/logo.png">
-                                </span>
-                            <span class="text">
-                                    <a href="index.html">Anemone</a>
-                                </span>
-                        </div>
-
-
-
-
-                    </div>
+                <div class="imgcontainer">
+                    <img src="anemone.png" alt="Avatar" class="avatar">
                 </div>
 
-
             </div>
-
-
-
-
-            <div class="breadcrumb-holder">
-                <div class="container">
-                    <ul class="inline bcrumb">
-                        <li>
-                            <a href="index.html">home</a>
-                        </li>
-
-                        <li class="active">Login &amp; Signup</li>
-
-
-                    </ul>
-
-
-                </div>
-            </div>
-
         </section>
 
 
         <section class="section-checkout">
             <div class="container">
+                <div class="h-100 h-custom">
+                    <div class="form-holder">
 
-                <div class="phase-title current">
-                    <h1>Log in &amp; Sign up</h1>
-                </div>
+                        <form action="{{ route('register') }}" method="post">
+                            @csrf
+                            <div class="control-group">
 
-                <div class="row-fluid">
-                    <div class="span6">
-                        <div class="form-holder right-border">
-                            <h4>Log in</h4>
-                            <form action="checkout-2.html" method="post">
-                                <div class="control-group">
+                                <div class="controls">
+                                    <div class="form-label ">Email</div>
 
-                                    <div class="controls">
-                                        <div class="form-label ">Email</div>
-
-                                        <input type="text" id="email" name="email" class="required span12 cusmo-input">
-
-                                    </div>
-                                </div>
-
-                                <div class="control-group">
-
-                                    <div class="controls">
-                                        <div class="form-label ">Password</div>
-
-                                        <input id="password" type="password" name="password" class="required span12 cusmo-input">
-
-                                    </div>
-                                </div>
-                                <!-- <div class="rememberme">
-                                    <div class="icheckbox_minimal-yellow" style="position: relative;">
-                                        <div class="icheckbox_minimal-yellow" style="position: relative;">
-                                            <div class="icheckbox_minimal-yellow" style="position: relative;">
-                                                <div class="icheckbox_minimal-yellow" style="position: relative;"><input type="checkbox" class="iCheck" style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins></div>
-                                                <ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins>
-                                            </div><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins></div>
-                                        <ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins>
-                                    </div> Remember me
-                                </div> -->
-                                <div class="forget-password">
-                                    <a href="#">Forgot your password?</a>
-                                </div>
-                                <p class="error_msg active">
-                                    Email or Password does not macth
-                                </p>
-                                <div class="button-holder">
-                                    <button class="cusmo-btn narrow " type="submit">log in</button>
-                                </div>
-                            </form>
-
-                        </div>
-
-                    </div>
-                    <div class="span6">
-                        <div class="form-holder">
-                            <h4>new member</h4>
-                            <p>
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam sem purus, interdum a mi eget.
-                            </p>
-                            <form action="{{ route('register') }}" method="post">
-                                @csrf
-                                <div class="control-group">
-
-                                    <div class="controls">
-                                        <div class="form-label ">Email</div>
-
-                                        <input type="text" name="email" class="required span12 cusmo-input">
-                                        @error('email')
-                                            <div class ="text-red-500 mt-2 text-sm">
-                                                {{ $message }}
+                                    <input type="text" name="email" class="required span8 cusmo-input">
+                                    @error('email')
+                                    <div class="text-red-500 mt-2 text-sm">
+                                        {{ $message }}
 
                                         @enderror
                                     </div>
@@ -154,64 +64,68 @@
                                     <div class="controls">
                                         <div class="form-label ">Full Name</div>
 
-                                        <input type="text" name="name" class="required span12 cusmo-input">
+                                        <input type="text" name="name" class="required span8 cusmo-input">
                                         @error('name')
-                                            <div class ="text-red-500 mt-2 text-sm">
+                                        <div class="text-red-500 mt-2 text-sm">
+                                            {{ $message }}
+
+                                            @enderror
+
+                                        </div>
+                                    </div>
+                                    <div class="control-group">
+
+                                        <div class="controls">
+                                            <div class="form-label ">User Name</div>
+
+                                            <input type="text" name="username" class="required span8 cusmo-input">
+                                            @error('name')
+                                            <div class="text-red-500 mt-2 text-sm">
                                                 {{ $message }}
 
-                                        @enderror
+                                                @enderror
 
-                                    </div>
-                                </div>
-                                <div class="control-group">
+                                            </div>
+                                        </div>
+                                        <div class="control-group">
 
-                                    <div class="controls">
-                                        <div class="form-label ">User Name</div>
+                                            <div class="controls">
+                                                <div class="form-label ">Password</div>
 
-                                        <input type="text" name="username" class="required span12 cusmo-input">
-                                        @error('name')
-                                            <div class ="text-red-500 mt-2 text-sm">
-                                                {{ $message }}
+                                                <input type="password" name="password" class="required span8 cusmo-input">
+                                                @error('password')
+                                                <div class="text-red-500 mt-2 text-sm">
+                                                    {{ $message }}
 
-                                        @enderror
+                                                    @enderror
 
-                                    </div>
-                                </div>
-                                <div class="control-group">
+                                                </div>
+                                            </div>
+                                            <div class="control-group">
 
-                                    <div class="controls">
-                                        <div class="form-label ">Password</div>
+                                                <div class="controls">
+                                                    <div class="form-label ">Re-Password</div>
 
-                                        <input type="password" name="password" class="required span12 cusmo-input">
-                                        @error('password')
-                                            <div class ="text-red-500 mt-2 text-sm">
-                                                {{ $message }}
+                                                    <input type="password" name="password_confirmation" class="required span8 cusmo-input">
+                                                    @error('password_confirmation')
+                                                    <div class="text-red-500 mt-2 text-sm">
+                                                        {{ $message }}
 
-                                        @enderror
+                                                        @enderror
 
-                                    </div>
-                                </div>
-                                <div class="control-group">
-
-                                    <div class="controls">
-                                        <div class="form-label ">Re-Password</div>
-
-                                        <input type="password" name="password_confirmation" class="required span12 cusmo-input">
-                                        @error('password_confirmation')
-                                            <div class ="text-red-500 mt-2 text-sm">
-                                                {{ $message }}
-
-                                        @enderror
-
-                                    </div>
-                                </div>
-                                <button class="cusmo-btn narrow pull-right" type="submit">sign up</button>
-                            </form>
+                                                    </div>
+                                                </div>
+                                                <div style="text-align: center">
+                                                    <button style="height:70px; width:250px" class="cusmo-btn narrow center" type="submit">register</button>
+                                                </div>
+                                                <p class="text-center text-muted mt-5 mb-0">Already have an account? <a href="#!" class="fw-bold text-body"><u>Login here</u></a></p>
+                        </form>
+                        <div class="container" style="background-color:#fff">
+                            <button type="button" class="cancelbtn">Cancel</button>
                         </div>
                     </div>
-                </div>
 
-            </div>
+                </div>
         </section>
 
         <section class="section-homepage-subscribe">
@@ -220,11 +134,11 @@
 
                     get the
                     <div class="big"><span>$</span>10</div>
-                    cupon
+                    coupon
 
                 </div>
                 <div class="offer-text">
-                    Sign in for our newsletter and recieve a ten dollars cupon
+                    Sign in for our newsletter and recieve a ten dollars coupon
                 </div>
                 <div class="email-holder">
 
@@ -294,10 +208,10 @@
             </div>
         </section>
 
-    </div>
+        </div>
 
 
-    <!-- <script type="text/javascript" src="js/jquery-1.8.3.min.js"></script>
+        <!-- <script type="text/javascript" src="js/jquery-1.8.3.min.js"></script>
         <script src="js/jquery-migrate-1.1.1.min.js"></script>
         <script src="css/bootstrap/js/bootstrap.min.js"></script>
 
@@ -318,6 +232,7 @@
 
 
 
-</body>
+    </body>
+</section>
 
 </html>
