@@ -133,7 +133,7 @@
         <section class="section-copyright">
             <div class="container">
                 <div class="copyright pull-left">
-                    <p>Copyright © 2022.Company name All rights reserved.</p>
+                    <p>Copyright © 2022 Anemone. All rights reserved.</p>
                 </div>
                 <div class="copyright-links pull-right">
                     <ul class="inline">
