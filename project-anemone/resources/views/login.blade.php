@@ -110,7 +110,7 @@
 
         <div class="container" style="background-color:#f1f1f1">
             <button type="button" class="cancelbtn">Cancel</button>
-            <span class="password"><a href="#">Register Here</a></span>
+            <span class="password"><a href="register">Register Here</a></span>
             <span class="password"><a href="#">Forgot password?</a></span>
         </div>
     </form>
