@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\UserController;
 // use App\Http\Controllers\DocumentController;
 // use App\Http\Controllers\AnnotationController;
 use Illuminate\Support\Facades\Route;
@@ -58,19 +57,6 @@ Route::post('/logout', [LogoutController::class, 'log_out']);
 Route::get('/', function () {
     return view('login');
 });
-
-// HTTP verb responses setup
-// Route::httpverb($uri, $callback);
-
-// User endpoint
-Route::get('/user', [UserController::class, 'index']);
-Route::post('/user', [UserController::class, 'create_user']);
-Route::post('/user/[]', [UserController::class, 'create_user_array']);
-Route::get('/user/login', [UserController::class, 'login']);
-Route::get('/user/logout', [UserController::class, 'logout']);
-Route::get('/user/{username}', [UserController::class, 'get_username']);
-Route::put('/user/{username}', [UserController::class, 'update_user_by_username']);
-Route::delete('/user/{username}', [UserController::class, 'delete_user']);
 
 // document endpoint
 Route::post('/upload', [DocumentController::class], 'upload');
