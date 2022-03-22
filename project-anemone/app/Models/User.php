@@ -42,6 +42,9 @@ class User extends Authenticatable implements MustVerifyEmail
         'email_verified_at' => 'datetime',
     ];
 
+    /**
+     * Indicates that the user is going to "have many" documents added to their table, not just one
+     */
     public function documents()
     {
         return $this->hasMany(Document::class);

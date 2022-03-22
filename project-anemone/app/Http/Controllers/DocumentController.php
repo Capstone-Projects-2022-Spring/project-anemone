@@ -11,9 +11,8 @@ class DocumentController extends Controller
     }
     public function upload(Request $request)
     {
-        //dd($request);
         $this->validate($request, ['file_metadata' => 'required']);
-        $data = json_encode($request->file_metadata);
+        $data = json_encode($request->file_metadata); //Turns everything passed as file_metadata into json
         $request->user()->documents()->create([
             'file_metadata' => $data
         ]);
