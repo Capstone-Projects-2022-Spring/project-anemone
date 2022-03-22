@@ -114,8 +114,7 @@
             </div>
         </div>
         <div id="display" class="float-right">
-            <form class="note-form" action="{{ route('documents') }}" method="post">
-                @csrf
+            <form class="note-form" action="">
                 <input class="note-info" type="text" name="note-lable">
                 <input class="addbtn" type="submit" value="add">
                 <div><p class="note1">node 1:Lorem ipsum dolor sit amet.</p><input type="submit" value="delete"></div>
