@@ -39,7 +39,7 @@
         .cancelbtn {
             width: auto;
             padding: 10px 18px;
-            background-color: #f44336;
+            background-color: #d34036;
         }
 
         .imgcontainer {
@@ -89,25 +89,24 @@
             <label for="email"><b>Username</b></label>
             <input type="text" placeholder="Enter Username" name="email" required>
             @error('email')
-                <div class ="text-red-500 mt-2 text-sm">
+            <div class="text-red-500 mt-2 text-sm">
+                {{ $message }}
+
+                @enderror
+
+                <label for="password"><b>Password</b></label>
+                <input type="password" placeholder="Enter Password" name="password" required>
+                @error('password')
+                <div class="text-red-500 mt-2 text-sm">
                     {{ $message }}
 
-            @enderror
+                    @enderror
 
-            <label for="password"><b>Password</b></label>
-            <input type="password" placeholder="Enter Password" name="password" required>
-            @error('password')
-                <div class ="text-red-500 mt-2 text-sm">
-                    {{ $message }}
-
-            @enderror
-
-            <button type="submit">Login</button>
-            <label>
-                <input type="checkbox" checked="checked" name="remember"> Remember me
-            </label>
-        </div>
-
+                    <button type="submit">Login</button>
+                    <label>
+                        <input type="checkbox" checked="checked" name="remember"> Remember me
+                    </label>
+                </div>
         <div class="container" style="background-color:#f1f1f1">
             <button type="button" class="cancelbtn">Cancel</button>
             <span class="password"><a href="register">Register Here</a></span>
