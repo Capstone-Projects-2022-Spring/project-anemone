@@ -11,7 +11,8 @@ class Document extends Model
 
     //Will probably have to fill out everything in the documents table as fillable or guarded but this works for now
     protected $fillable = [
-        'file_metadata'
+        'file_metadata',
+        'user_id'
     ];
 }
 

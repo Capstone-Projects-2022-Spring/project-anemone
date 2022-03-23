@@ -3,11 +3,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Document;
 
 class DocumentController extends Controller
 {
     public function index(){
-        return view('documents');
+        $documents = Document::get();
+        return view('documents', ['documents' => $documents]);
     }
     public function upload(Request $request)
     {

@@ -76,6 +76,7 @@ Route::delete('/user/{username}', [UserController::class, 'delete_user']);
 // document endpoint
 Route::get('/documents', [DocumentController::class, 'index'])->name('documents')->middleware('auth', 'verified');;
 Route::post('/documents', [DocumentController::class, 'upload']);
+Route::post('/documents/{id}', [DocumentController::class, 'upload']);
 
 Route::put('/document', [DocumentController::class, 'update_document']);
 Route::get('/document/status', [DocumentController::class, 'find_document_by_status']);
