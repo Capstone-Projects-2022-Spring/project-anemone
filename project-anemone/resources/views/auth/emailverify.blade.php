@@ -74,10 +74,10 @@
                                     <td bgcolor="#ffffff" align="center" style="padding: 20px 30px 60px 30px;">
                                         <table border="0" cellspacing="0" cellpadding="0">
                                             <tr>
-                                                <td align="center" style="border-radius: 3px;" bgcolor="#d34036"><a
-                                                        href="#" target="_blank"
-                                                        style="font-size: 20px; font-family: Helvetica, Arial, sans-serif; color: #ffffff; text-decoration: none; color: #ffffff; text-decoration: none; padding: 15px 25px; border-radius: 2px; border: 1px solid #d34036; display: inline-block;">
-                                                    Resend email</a></td>
+                                            <form class="d-inline" method="POST" action="{{ route('verification.send') }}">
+                                            @csrf
+                                                <button type="submit" class="btn btn-link p-0 m-0 align-baseline">{{ __('Resend Email') }}</button>.
+                                            </form>
                                             </tr>
                                         </table>
                                     </td>
