@@ -13,10 +13,18 @@ class DocumentController extends Controller
     }
     public function upload(Request $request)
     {
-        $this->validate($request, ['file_metadata' => 'required']);
-        $data = json_encode($request->file_metadata); //Turns everything passed as file_metadata into json
+        $this->validate($request, ['path' => 'required']);
+        $file = $request->file('path');
+
+        $extension = $request->file('path')->extension();
+        $name = $request->file('path')->getClientOriginalName();
+        $path = time().'-'.$name;
+        $test = $request->path->move(public_path('images'), $path);
+
         $request->user()->documents()->create([
-            'file_metadata' => $data
+            'path' => $path,
+            'file_type' => $extension,
+            'name' => $name,
         ]);
 
         return back();

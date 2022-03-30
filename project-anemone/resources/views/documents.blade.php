@@ -114,16 +114,16 @@
             </div>
         </div>
         <div id="display" class="float-right">
-            <form class="note-form" action="{{ route('documents') }}" method="post">
+            <form action="{{ route('documents') }}" enctype="multipart/form-data" method="post">
                 @csrf
-                <input class="note-info" type="text" name="file_metadata">
-                <input class="addbtn" type="submit" value="add">
+                <input id="path" name="path" type="file" />
+                <input type="submit" value="submit" id="submit" />
             </form>
             @if($documents->count())
                 @foreach($documents as $document)
                     @if($document->user_id == auth()->id())
                         <div>
-                        <p>{{ $document->file_metadata }}</p>
+                        <p>{{ $document->path }}</p>
                         </div>
                     @endif
                 @endforeach
