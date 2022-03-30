@@ -9,8 +9,8 @@ Our software is primarily designed to help people who are interested in collecti
 
 ## Milestone Demo 2
 [prototype](https://xd.adobe.com/view/ce580b08-3173-41e4-8fd4-240adb0a0cfc-9b0b/?fullscreen&hints=off)
-### User Test in MD2:
-- experience the vision of the product ``` click product button and access the features Anemone plans to offer```
+#### User Testing:
+- experience the vision of the product ``` When in the prototype, on the About page, click product button and access the features Anemone plans to offer```
 
 ## Milestone Demo 1 
 [v1.0.0](https://github.com/Capstone-Projects-2022-Spring/project-anemone/releases)
