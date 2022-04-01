@@ -15,7 +15,6 @@ class LoginController extends Controller{
             'email' => 'required|email',
             'password' => 'required',
         ]);
-
         if(auth()->attempt($request->only('email','password'))){
             return redirect()->route('dashboard');
         }
