@@ -19,9 +19,11 @@ return new class extends Migration
             $table->timestamps();
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
-            $table->json('file_metadata');
-            $table->text('title');
-            $table->text('file_type');
+            $table->text('path');
+            $table->text('name');
+            $table->text('project_id')->nullable();
+            $table->text('file_type')->nullable();
+            $table->text('url')->nullable();
         });
     }
 
