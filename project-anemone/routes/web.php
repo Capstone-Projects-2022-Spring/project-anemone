@@ -64,15 +64,8 @@ Route::get('/documents', [DocumentController::class, 'index'])->name('documents'
 Route::post('/documents', [DocumentController::class, 'upload']);
 Route::post('/documents/{id}', [DocumentController::class, 'upload']);
 
-Route::put('/document', [DocumentController::class, 'update_document']);
-Route::get('/document/status', [DocumentController::class, 'find_document_by_status']);
-Route::get('/document/{documentId}', [DocumentController::class, 'get_document_by_id']);
-Route::delete('/document/{documentId}', [DocumentController::class, 'delete_document_by_id']);
-Route::post('/document/[]', [DocumentController::class, 'create_document_list']);
-
 // documents search query endpoint
 Route::get('/document/search/{path}', [DocumentController::class, 'search_documents_by_query']);
 
 // annotation endpoint
 
-// shared link result endpoint
