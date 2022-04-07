@@ -123,7 +123,7 @@
                 @foreach($documents as $document)
                     @if($document->user_id == auth()->id())
                         <div>
-                        <p>{{ $document->path }}</p>
+                            <embed src="{{ asset('images/' . $document->path) }}"/>
                         </div>
                     @endif
                 @endforeach
