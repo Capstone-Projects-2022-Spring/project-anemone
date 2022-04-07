@@ -2,6 +2,7 @@
 
 // use App\Http\Controllers\DocumentController;
 // use App\Http\Controllers\AnnotationController;
+use App\Http\Controllers\DocumentController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\LoginController;
@@ -59,7 +60,10 @@ Route::get('/', function () {
 });
 
 // document endpoint
-Route::post('/upload', [DocumentController::class], 'upload');
+Route::get('/documents', [DocumentController::class, 'index'])->name('documents')->middleware('auth', 'verified');;
+Route::post('/documents', [DocumentController::class, 'upload']);
+Route::post('/documents/{id}', [DocumentController::class, 'upload']);
+
 Route::put('/document', [DocumentController::class, 'update_document']);
 Route::get('/document/status', [DocumentController::class, 'find_document_by_status']);
 Route::get('/document/{documentId}', [DocumentController::class, 'get_document_by_id']);
