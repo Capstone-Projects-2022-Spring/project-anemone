@@ -1,0 +1,35 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Anemone API",
+        "description": "L5 Swagger OpenApi description",
+        "contact": {
+            "email": "project.anemone.email@gmail.com"
+        },
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://project-anemone.test/api/v1",
+            "description": "Anemone API Server"
+        }
+    ],
+    "paths": {
+        "/": {
+            "get": {
+                "description": "Home page",
+                "responses": {
+                    "default": {
+                        "description": "About page"
+                    }
+                }
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Anemone",
+            "description": "API Endpoints of Anemone"
+        }
+    ]
+}

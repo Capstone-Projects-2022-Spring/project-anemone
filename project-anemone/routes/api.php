@@ -20,7 +20,7 @@ Route::group([
   'namespace' => 'Api\V1\Admin',
   'middleware' => ['auth:api']
 ], function () {
-    Route::apiResource('projects', 'ProjectsApiController');
+    Route::apiResource('anemone', 'ApiController');
 });
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
