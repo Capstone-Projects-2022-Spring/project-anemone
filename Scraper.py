@@ -8,12 +8,13 @@ url = input()
 page = requests.get(url) #load page
 
 soup = BeautifulSoup(page.content, 'html.parser') #make page readable/writable
-result = soup.find_all('p', {'class':''}) #isolates every p tag and excludes p class tags
-output = []
+for nav in soup.select("nav"):
+    nav.extract()
 
-for content in result:
-    stripped = content.text.strip()
-    output.append(stripped.replace('\n',' ')) #only way i could find to strip off html tags
+output = []
+for result in soup.find_all('p'):
+    stripped = result.text.strip()
+    output.append((stripped.replace('\n',' ')))
 
 body = ''.join(output) #needs to be a string or else the connector won't take it
 
@@ -33,4 +34,4 @@ cnx.commit()
 cursor.close()
 cnx.close()
 
-print(result)
+print(output)
