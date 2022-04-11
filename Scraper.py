@@ -9,10 +9,10 @@ page = requests.get(url) #load page
 
 soup = BeautifulSoup(page.content, 'html.parser') #make page readable/writable
 for nav in soup.select("nav"):
-    nav.extract()
+    nav.extract() #excludes nav tag
 
 output = []
-for result in soup.find_all('p'):
+for result in soup.find_all('p'): #finds and isolates all p tags
     stripped = result.text.strip()
     output.append((stripped.replace('\n',' ')))
 
