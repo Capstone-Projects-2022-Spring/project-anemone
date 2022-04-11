@@ -8,8 +8,10 @@ use Illuminate\Http\Request;
 class LogoutController extends Controller
 {
     public function log_out(){
-        auth()-> logout();
+        auth()->user()->tokens()->delete();
 
-        return redirect()->route('login');
+        return[
+            'message' => 'Logged out'
+        ];
     }
 }
