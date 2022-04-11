@@ -34,7 +34,7 @@ Route::post('/register', function(Request $request){
   return RegisterController::register_user($request);
 });
 
-Route::get('/login', function(Request $request){
+Route::post('/login', function(Request $request){
   return LoginController::sign_in($request);
 });
 
