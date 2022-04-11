@@ -5,6 +5,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 class LoginController extends Controller{
+    //probably can remove this
     public function index(){
         return view('login');
     }
@@ -15,8 +16,15 @@ class LoginController extends Controller{
             'email' => 'required|email',
             'password' => 'required',
         ]);
-        if(auth()->attempt($request->only('email','password'))){
-            return redirect()->route('dashboard');
-        }
+        
+        //tokenize
+        $token = $user->createToken('user')->plainTextToken;
+
+        $response = [
+            'user' => $user,
+            'token' => $token
+        ];
+
+        return response($response, 201);
     }
 }

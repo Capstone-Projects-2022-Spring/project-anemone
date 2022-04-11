@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Auth\Events\Registered;
 
 class RegisterController extends Controller{
+    //Probably can remove this
     public function index(){
         return view('register');
     }
@@ -29,14 +30,17 @@ class RegisterController extends Controller{
         'email' => $request->email,
         'password' => Hash::make($request->password),
         ]);
-        event(new Registered($user));
-        
-        auth()->attempt([
-            'email' => $request->email,
-            'password' => $request->password
-        ]);
 
-        //redirect
-        return redirect()->route('dashboard');
+        event(new Registered($user)); //Might be able to remove this? It exists for current email validation but that probably needs to be changed
+        
+        //tokenize
+        $token = $user->createToken('user')->plainTextToken;
+
+        $response = [
+            'user' => $user,
+            'token' => $token
+        ];
+
+        return response($response, 201);
     }
 }
