@@ -27,5 +27,12 @@ class DocumentController extends Controller
             'name' => $name,
             ]);
         }
+
+        $response = [
+            'name' => $name,
+            'path' => $path
+        ];
+
+        return response($response, 201);
     }
 }
