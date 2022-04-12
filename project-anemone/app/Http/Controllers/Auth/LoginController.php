@@ -6,8 +6,8 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 class LoginController extends Controller{
-    public function sign_in(Request $request){
-        $this->validate($request, [
+    public static function sign_in(Request $request){
+        $request->validate([
             //'username' => 'required|max:255',
             'email' => 'required|email',
             'password' => 'required',
@@ -15,14 +15,13 @@ class LoginController extends Controller{
         
         //tokenize
         $user = User::where('email', $request->email)->first();
-
         $token = $user->createToken('user')->plainTextToken;
 
         $response = [
             'user' => $user,
             'token' => $token
         ];
-        
+
         return response($response, 200);
     }
 }

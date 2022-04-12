@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Auth\Events\Registered;
 
 class RegisterController extends Controller{
-    public function register_user(Request $request){
+    public static function register_user(Request $request){
         //validate
         $request->validate([
             'name' => 'required|max:255',
@@ -25,6 +25,7 @@ class RegisterController extends Controller{
         'email' => $request->email,
         'password' => Hash::make($request->password),
         ]);
+
         //tokenize
         $token = $user->createToken('user')->plainTextToken;
 
