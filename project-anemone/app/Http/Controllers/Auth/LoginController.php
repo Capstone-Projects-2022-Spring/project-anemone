@@ -15,13 +15,14 @@ class LoginController extends Controller{
         
         //tokenize
         $user = User::where('email', $request->email)->first();
+
         $token = $user->createToken('user')->plainTextToken;
 
         $response = [
             'user' => $user,
             'token' => $token
         ];
-
+        
         return response($response, 200);
     }
 }
