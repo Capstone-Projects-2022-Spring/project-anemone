@@ -9,6 +9,7 @@ use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Controllers\IndexController;
 use App\Http\Controllers\DashboardController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
+use App\Http\Controllers\Auth\VerifyEmailController;
 
 /*
 |--------------------------------------------------------------------------
@@ -45,21 +46,14 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
   Route::post('/documents', [DocumentController::class, 'upload']);
 });
 
-//Email Verification
-Route::get('/email/verify', function() {
-    return view('auth.emailverify');
-})->middleware('auth')->name('verification.notice');
+// Verify email
+Route::get('/email/verify/{id}/{hash}', [VerifyEmailController::class, 'confirmation'])
+    ->middleware(['signed', 'throttle:6,1'])
+    ->name('verification.verify');
 
-Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
-    $request->fulfill();
- 
-    return redirect('/index');
-})->middleware(['auth', 'signed'])->name('verification.verify');
-
-Route::post('/email/verification-notification', function (Request $request) {
+// Resend link to verify email
+Route::post('/email/verify/resend', function (Request $request) {
     $request->user()->sendEmailVerificationNotification();
- 
-    return back()->with('message', 'Verification link sent!');
 })->middleware(['auth', 'throttle:6,1'])->name('verification.send');
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
