@@ -9,9 +9,9 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Auth\Events\Registered;
 
 class RegisterController extends Controller{
-    public static function register_user(Request $request){
+    public function register_user(Request $request){
         //validate
-        $request->validate([
+        $this->validate($request, [
             'name' => 'required|max:255',
             //'username' => 'required|max:255',
             'email' => 'required|email|max:255',

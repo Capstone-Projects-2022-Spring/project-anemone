@@ -6,8 +6,8 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 class LoginController extends Controller{
-    public static function sign_in(Request $request){
-        $request->validate([
+    public function sign_in(Request $request){
+        $this->validate($request, [
             //'username' => 'required|max:255',
             'email' => 'required|email',
             'password' => 'required',
