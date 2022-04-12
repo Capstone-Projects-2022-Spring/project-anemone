@@ -23,49 +23,5 @@ use Illuminate\Http\Request;
 |
 */
 Route::get('/', function () {
-    return view('register');
+    return view('welcome');
 });
-
-Route::get('/index', [IndexController::class, 'index'])->name('index')->middleware('auth', 'verified');
-
-Route::get('/register', [RegisterController::class, 'index'])->name('register');
-Route::post('/register', [RegisterController::class, 'register_user']);
-
-Route::get('/email/verify', function () {
-    return view('auth.emailverify');
-})->middleware('auth')->name('verification.notice');
-
-Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
-    $request->fulfill();
- 
-    return redirect('/index');
-})->middleware(['auth', 'signed'])->name('verification.verify');
-
-Route::post('/email/verification-notification', function (Request $request) {
-    $request->user()->sendEmailVerificationNotification();
- 
-    return back()->with('message', 'Verification link sent!');
-})->middleware(['auth', 'throttle:6,1'])->name('verification.send');
-
-Route::get('/login', [LoginController::class, 'index'])->name('login');
-Route::post('/login', [LoginController::class, 'sign_in']);
-
-Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard')->middleware('auth', 'verified');
-
-Route::get('/logout', [LogoutController::class, 'log_out'])->name('logout');
-Route::post('/logout', [LogoutController::class, 'log_out']);
-
-Route::get('/', function () {
-    return view('login');
-});
-
-// document endpoint
-Route::get('/documents', [DocumentController::class, 'index'])->name('documents')->middleware('auth', 'verified');;
-Route::post('/documents', [DocumentController::class, 'upload']);
-Route::post('/documents/{id}', [DocumentController::class, 'upload']);
-
-// documents search query endpoint
-Route::get('/document/search/{path}', [DocumentController::class, 'search_documents_by_query']);
-
-// annotation endpoint
-

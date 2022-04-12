@@ -1,15 +1,11 @@
 <?php
 
 namespace App\Http\Controllers\Auth;
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 class LoginController extends Controller{
-    //probably can remove this
-    public function index(){
-        return view('login');
-    }
-
     public function sign_in(Request $request){
         $this->validate($request, [
             //'username' => 'required|max:255',
@@ -18,6 +14,7 @@ class LoginController extends Controller{
         ]);
         
         //tokenize
+        $user = User::where('email', $request->email)->first();
         $token = $user->createToken('user')->plainTextToken;
 
         $response = [
@@ -25,6 +22,6 @@ class LoginController extends Controller{
             'token' => $token
         ];
 
-        return response($response, 201);
+        return response($response, 200);
     }
 }

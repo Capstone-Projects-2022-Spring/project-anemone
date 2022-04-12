@@ -30,16 +30,14 @@ Route::group([
     Route::apiResource('anemone', 'ApiController');
 });
 
-Route::post('/register', function(Request $request){
+/*Route::post('/register', function(Request $request){
   return RegisterController::register_user($request);
-});
+});*/
+Route::post('/register', [RegisterController::class, 'register_user']);
 
-Route::post('/login', function(Request $request){
-  return LoginController::sign_in($request);
-});
-
-Route::get('/logout', function(){
-  return LogoutController::log_out();
+Route::post('/login', [LoginController::class, 'sign_in']);
+Route::group(['middleware' => ['auth:sanctum']], function () {
+  Route::post('/logout', [LogoutController::class, 'log_out']);
 });
 
 Route::get('/email/verify', function() {
