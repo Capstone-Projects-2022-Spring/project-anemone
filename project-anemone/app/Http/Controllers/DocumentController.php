@@ -21,10 +21,11 @@ class DocumentController extends Controller
             $file->move(public_path('images'), $path);
 
             //store
-            $request->user()->documents()->create([
+            Document::create([
             'path' => $path,
             'file_type' => $name,
             'name' => $name,
+            'user_id' => auth()->id()
             ]);
         }
 
@@ -34,5 +35,13 @@ class DocumentController extends Controller
         ];
 
         return response($response, 201);
+    }
+
+    public function display($user_id, $id)
+    {
+        return Document::where([
+            'id' => $id,
+            'user_id' => $user_id
+        ])->first();
     }
 }

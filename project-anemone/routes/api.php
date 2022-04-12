@@ -44,6 +44,7 @@ Route::post('/login', [LoginController::class, 'sign_in']);
 Route::group(['middleware' => ['auth:sanctum']], function () {
   Route::post('/logout', [LogoutController::class, 'log_out']);
   Route::post('/documents', [DocumentController::class, 'upload']);
+  Route::get('/documents/{user_id}/{id}', [DocumentController::class, 'display']);
 });
 
 // Verify email
