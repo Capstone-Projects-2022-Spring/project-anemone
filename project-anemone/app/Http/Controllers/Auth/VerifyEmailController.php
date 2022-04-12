@@ -11,7 +11,7 @@ use App\Models\User;
 class VerifyEmailController extends Controller
 {
 
-    public function confirmation(Request $request): RedirectResponse
+    public function confirmation(Request $request)
     {
         $user = User::find($request->route('id'));
 
