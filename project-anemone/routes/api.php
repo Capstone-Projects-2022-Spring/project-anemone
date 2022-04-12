@@ -39,8 +39,10 @@ Route::post('/register', [RegisterController::class, 'register_user']);
 
 Route::post('/login', [LoginController::class, 'sign_in']);
 
+//protected
 Route::group(['middleware' => ['auth:sanctum']], function () {
   Route::post('/logout', [LogoutController::class, 'log_out']);
+  Route::post('/documents', [DocumentController::class, 'upload']);
 });
 
 //Email Verification
@@ -59,11 +61,6 @@ Route::post('/email/verification-notification', function (Request $request) {
  
     return back()->with('message', 'Verification link sent!');
 })->middleware(['auth', 'throttle:6,1'])->name('verification.send');
-
-//Upload
-Route::get('/documents', function(Request $request){
-  return DocumentController::upload($request);
-});
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();

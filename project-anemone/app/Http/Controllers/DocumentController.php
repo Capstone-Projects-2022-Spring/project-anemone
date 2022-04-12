@@ -7,26 +7,25 @@ use App\Models\Document;
 
 class DocumentController extends Controller
 {
-    public function index(){
-        $documents = Document::get();
-        return view('documents', ['documents' => $documents]);
-    }
     public function upload(Request $request)
     {
-        $this->validate($request, ['path' => 'required']);
-        $file = $request->file('path');
+        //validate
 
-        $extension = $request->file('path')->extension();
-        $name = $request->file('path')->getClientOriginalName();
-        $path = time().'-'.$name;
-        $test = $request->path->move(public_path('images'), $path);
+        //format
+        if($request->hasFile('image')){
+            $file = $request->file('image');
+            $extension = $request->file('image')->getClientOriginalExtension();
+            $name = $request->file('image')->getClientOriginalName();
+            $path = time().'-'.$name;
+            
+            $file->move(public_path('images'), $path);
 
-        $request->user()->documents()->create([
+            //store
+            $request->user()->documents()->create([
             'path' => $path,
-            'file_type' => $extension,
+            'file_type' => $name,
             'name' => $name,
-        ]);
-
-        return back();
+            ]);
+        }
     }
 }
