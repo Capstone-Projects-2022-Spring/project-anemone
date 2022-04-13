@@ -9,10 +9,6 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Auth\Events\Registered;
 
 class RegisterController extends Controller{
-    public function index(){
-        return view('register');
-    }
-
     public function register_user(Request $request){
         //validate
         $this->validate($request, [
@@ -31,12 +27,14 @@ class RegisterController extends Controller{
         ]);
         event(new Registered($user));
         
-        auth()->attempt([
-            'email' => $request->email,
-            'password' => $request->password
-        ]);
+        //tokenize
+        $token = $user->createToken('user')->plainTextToken;
 
-        //redirect
-        return redirect()->route('dashboard');
+        $response = [
+            'user' => $user,
+            'token' => $token
+        ];
+
+        return response($response, 201);
     }
 }

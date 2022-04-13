@@ -10,7 +10,7 @@
     },
     "servers": [
         {
-            "url": "http://project-anemone.test/api/v1",
+            "url": "https://anemone.avalonbloom.com/api/v1/",
             "description": "Anemone API Server"
         }
     ],
