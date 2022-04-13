@@ -21,17 +21,16 @@ class DocumentController extends Controller
             $file->move(public_path('images'), $path);
 
             //store
-            Document::create([
+            $document = Document::create([
             'path' => $path,
-            'file_type' => $name,
+            'file_type' => $extension,
             'name' => $name,
             'user_id' => auth()->id()
             ]);
         }
 
         $response = [
-            'name' => $name,
-            'path' => $path
+            'document' => $document
         ];
 
         return response($response, 201);
