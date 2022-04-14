@@ -2,9 +2,9 @@ from bs4 import BeautifulSoup #pip install beautifulsoup4
 import requests #pip install requests
 import mysql.connector #pip install mysql-connector-python
 import datetime
+from urllib.parse import urlparse
 
-print("Input url: ")
-url = input()
+url = input("Input url: ")
 def main(url):
     body = scrape(url)
     print(body)
@@ -19,14 +19,8 @@ def scrape(url):
 
     for footer in soup.select("footer"):
         footer.extract() #excludes nav tag
-    
-    output = []
-    for result in soup.find_all(['p', 'a']): #finds and isolates all p tags
-        stripped = result.text.strip()
-        output.append((stripped.replace('\n','')))
 
-    body = '\n'.join(output) #needs to be a string or else the connector won't take it
-    return body
+    return cleanup(soup, url)
 
 def insert(body, url):
     cnx = mysql.connector.connect(user='root', password='password',
@@ -44,5 +38,29 @@ def insert(body, url):
 
     cursor.close()
     cnx.close()
+
+def cleanup(soup, url):
+    domain = extract_domain(url)
+    output = []
+    if(domain == "docs.python.org"):
+        for result in soup.find_all('div', attrs={"class":"documentwrapper"}):
+            stripped = result.text.strip()
+            output.append(stripped)
+    elif(domain == "docs.docker.com"):
+        for result in soup.find_all('section', attrs={"class":"section"}):
+            stripped = result.text.strip()
+            output.append(stripped)
+    else:
+        for result in soup.find_all(['p', 'a']): #finds and isolates all p tags
+            stripped = result.text.strip()
+            output.append((stripped.replace('\n','')))
+
+    body = '\n'.join(output) #needs to be a string or else the connector won't take it
+    return body
+
+
+def extract_domain(url):
+    domain = urlparse(url).netloc
+    return domain
 
 main(url)
