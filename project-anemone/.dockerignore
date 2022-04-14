@@ -1,0 +1,27 @@
+# dotenv environment variables file
+.env
+.env.test
+.env.backup
+
+# Stores VSCode versions used for testing VSCode extensions
+.vscode-test
+
+# all stora
+/public/images
+/public/storage/app
+/public/storage/framework
+/public/storage/logs
+
+
+# misc
+/node_modules
+.phpunit.result.cache
+Homestead.json
+Homestead.yaml
+npm-debug.log
+yarn-error.log
+
+# IDE configs
+/.idea
+/.vscode
+/.DS_Store
