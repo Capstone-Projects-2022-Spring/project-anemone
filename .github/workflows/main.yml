@@ -29,7 +29,7 @@ jobs:
     - name: Generate key
       run: php artisan key:generate
     
-    - name: Generate Swagger UI
+
     - uses: swagger-api/swagger-ui@v3
       with:
         output: swagger-ui
