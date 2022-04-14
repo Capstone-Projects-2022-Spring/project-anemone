@@ -14,11 +14,11 @@ def scrape(url):
     page = requests.get(url) #load page
 
     soup = BeautifulSoup(page.content, 'html.parser') #make page readable/writable
-    for nav in soup.select("nav"):
-        nav.extract() #excludes nav tag
+    for nav in soup.select("nav"): #excludes nav tag
+        nav.extract()
 
-    for footer in soup.select("footer"):
-        footer.extract() #excludes nav tag
+    for footer in soup.select("footer"): #excludes footer tag
+        footer.extract()
 
     return cleanup(soup, url)
 
