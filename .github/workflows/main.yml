@@ -28,9 +28,7 @@ jobs:
       run: composer install --prefer-dist --no-progress --no-suggest
     - name: Generate key
       run: php artisan key:generate
-    
-
-    - uses: swagger-api/swagger-ui@v3
-      with:
-        output: swagger-ui
-        spec-file: api-docs.json
+    - name: Migrate Databases
+      run: php artisan migrate
+    - name: Generate Swagger
+      run: php artisan L5-swagger:generate
