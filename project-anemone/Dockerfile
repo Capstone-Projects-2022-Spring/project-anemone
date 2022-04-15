@@ -13,7 +13,7 @@ RUN docker-php-ext-install bcmath pdo_mysql
 
 COPY --from=build /app /var/www/html
 COPY docker/000-default.conf /etc/apache2/sites-available/000-default.conf
-COPY .env /var/www/html/.env
+COPY ./project-anemone/.env /var/www/html/.env
 
 RUN php artisan config:cache && \
     php artisan route:cache && \
