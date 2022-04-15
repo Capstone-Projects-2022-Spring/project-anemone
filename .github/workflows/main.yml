@@ -46,6 +46,6 @@ jobs:
         with:
           context: .
           platforms: linux/amd64,linux/arm64
-          file: ./project-anemone/docker-compose.yml
+          file: ./project-anemone/Dockerfile
           push: true
           tags: ${{ secrets.DOCKER_HUB_USERNAME }}/project-anemone:latest
