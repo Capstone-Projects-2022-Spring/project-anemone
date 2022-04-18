@@ -38,12 +38,16 @@ paths:
       produces:
       - "application/json"
       parameters:
-      - in: "body"
-        name: "body"
-        description: "Doc object that needs to be added to the database"
+      - name: "userID"
+        in: "userID"
+        description: "ID of user"
         required: true
-        schema:
-          $ref: "#/definitions/Document"
+        type: "string"
+      - name: "docId"
+        in: "docID"
+        description: "ID of document to return"
+        required: true
+        type: "string"
       responses:
         "400":
           description: "Invalid ID supplied"
@@ -63,12 +67,12 @@ paths:
       produces:
       - "application/json"
       parameters:
-      - name: "documentId"
-        in: "path"
-        description: "ID of document to return"
+      - in: "$request"
+        name: "request"
+        description: "Doc object that needs to be added to the database"
         required: true
-        type: "integer"
-        format: "int64"
+        schema:
+          $ref: "#/definitions/Document"
       responses:
         "200":
           description: "OK"
@@ -92,8 +96,8 @@ paths:
       - "application/xml"
       - "application/json"
       parameters:
-      - in: "body"
-        name: "body"
+      - in: "$request"
+        name: "request"
         description: "Created user object"
         required: true
         schema:
@@ -165,14 +169,9 @@ paths:
       - "application/xml"
       - "application/json"
       parameters:
-      - name: "username"
-        in: "query"
-        description: "The user name for login"
-        required: true
-        type: "string"
-      - name: "password"
-        in: "query"
-        description: "The password for login in clear text"
+      - name: "$request"
+        in: "request"
+        description: "The email and password for login"
         required: true
         type: "string"
       responses:
@@ -200,6 +199,11 @@ paths:
       produces:
       - "application/xml"
       - "application/json"
+      parameters:
+      - name: "$request"
+        in: "request"
+        description: "Logout request for user"
+        required: true
       parameters: []
       responses:
         default:
