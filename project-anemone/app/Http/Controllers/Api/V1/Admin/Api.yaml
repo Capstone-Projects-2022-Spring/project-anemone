@@ -1,8 +1,8 @@
 swagger: "2.0"
 info:
   description: "This is a draft Anemone API specification.  You can find out more about Anemone at [Anemone](http://anemone.avalonbloom.com). For this sample, you can use the api key `special-key` to test the authorization filters."
-  version: "1.0.0"
-  title: "Anemone Core API v1"
+  version: "2.0.0"
+  title: "Anemone Core API v2"
 host: "anemone.avalonbloom.com"
 basePath: "/V1"
 tags:
@@ -26,7 +26,7 @@ schemes:
 - "https"
 - "http"
 paths:
-  /documents:
+  /documents/{user_id}/{id}:
     get:
       tags:
       - "retrieve"
@@ -53,34 +53,7 @@ paths:
           description: "Validation exception"
       security:
       - api_key: []
-    post:
-      tags:
-      - "collect"
-      summary: "Uploads a new file."
-      operationId: "upload"
-      consumes:
-      - multipart/form-data
-      produces:
-      - "application/json"
-      parameters:
-      - in: formData
-        name: upfile
-        type: file
-        required: true
-        description: The file to upload.
-      # - in: formData
-      #   name: note
-      #   type: string
-      #   required: false
-      #   description: Description of file contents.
-      responses:
-        204:
-          description: "Uploaded"
-        "415":
-          description: "Unsupported Media Type"
-      security:
-      - api_key: []
-  /documents/{documentId}:
+  /documents:
     post:
       tags:
       - "retrieve"
@@ -107,97 +80,14 @@ paths:
           description: "Document not found"
       security:
       - api_key: []
-  /documents/search/{path}:
-    get:
-      tags:
-      - "retrieve"
-      summary: "Search for document by query"
-      description: "Returns a body of content"
-      operationId: "searchByQuery"
-      produces:
-      - "application/json"
-      parameters:
-      - name: path
-        in: path
-        type: string
-        required: true
-        description: The path to the folder you want to search from.
-      - name: query
-        in: query
-        type: string
-        required: true
-        description: |
-              The search string. This string is split (on spaces) into individual words. Files and folders will be
-              returned if they contain all words in the search string.
-      - name: include_membership
-        in: query
-        type: boolean
-        required: false
-        description: If `true`, metadata for a shared folder will include a list of members and a list of projects.
-      responses:
-        200:
-          description: List of metadata entries for any matching files and folders.
-          schema:
-            $ref: '#/definitions/SearchResult'
-        401:
-          $ref: '#/responses/Unauthorized'
-        403:
-          $ref: '#/responses/Forbidden'
-        406:
-          description: "Not acceptable; invalid query supplied"
-      security:
-      - api_key: []
       
   /register:
-    get:
-      tags:
-      - "user"
-      summary: "Create user"
-      description: "This can only be done by an unregistered user."
-      operationId: "register"
-      produces:
-      - "application/xml"
-      - "application/json"
-      parameters:
-      - in: "body"
-        name: "body"
-        description: "Created user object"
-        required: true
-        schema:
-          $ref: "#/definitions/User"
-      responses:
-        "200":
-          description: "OK"
-      security:
-      - api_key: []
     post:
       tags:
       - "user"
       summary: "Create user"
       description: "This can only be done by an unregistered user."
       operationId: "register_user"
-      produces:
-      - "application/xml"
-      - "application/json"
-      parameters:
-      - in: "body"
-        name: "body"
-        description: "Created user object"
-        required: true
-        schema:
-          $ref: "#/definitions/User"
-      responses:
-        "200":
-          description: "OK"
-      security:
-      - api_key: []
-  /email/verify:
-    get:
-      tags:
-      - "user"
-      summary: "verify user"
-      description: "This can only be done by an registering user."
-      operationId: "verification.notice"
       produces:
       - "application/xml"
       - "application/json"
@@ -265,42 +155,6 @@ paths:
       security:
       - api_key: []
   /login:
-    get:
-      tags:
-      - "user"
-      summary: "Logs user into the system"
-      description: ""
-      operationId: "login"
-      produces:
-      - "application/xml"
-      - "application/json"
-      parameters:
-      - name: "username"
-        in: "query"
-        description: "The user name for login"
-        required: true
-        type: "string"
-      - name: "password"
-        in: "query"
-        description: "The password for login in clear text"
-        required: true
-        type: "string"
-      responses:
-        "200":
-          description: "OK"
-          schema:
-            type: "string"
-          headers:
-            X-Rate-Limit:
-              type: "integer"
-              format: "int32"
-              description: "calls per hour allowed by the user"
-            X-Expires-After:
-              type: "string"
-              format: "date-time"
-              description: "date in UTC when token expires"
-        "400":
-          description: "Invalid username/password supplied"
     post:
       tags:
       - "user"
@@ -338,19 +192,6 @@ paths:
         "400":
           description: "Invalid username/password supplied"  
   /logout:
-    get:
-      tags:
-      - "user"
-      summary: "Logs out current user session"
-      description: ""
-      operationId: "logout"
-      produces:
-      - "application/xml"
-      - "application/json"
-      parameters: []
-      responses:
-        default:
-          description: "OK"
     post:
       tags:
       - "user"
@@ -363,83 +204,6 @@ paths:
       responses:
         default:
           description: "OK"
-  /user/{username}:
-    get:
-      tags:
-      - "user"
-      summary: "Get user by user name"
-      description: ""
-      operationId: "getUserByName"
-      produces:
-      - "application/xml"
-      - "application/json"
-      parameters:
-      - name: "username"
-        in: "path"
-        description: "The name that needs to be fetched. Use user1 for testing. "
-        required: true
-        type: "string"
-      responses:
-        "200":
-          description: "OK"
-          schema:
-            $ref: "#/definitions/User"
-        "400":
-          description: "Invalid username supplied"
-        "404":
-          description: "User not found"
-    put:
-      tags:
-      - "user"
-      summary: "Updated user"
-      description: "This can only be done by the logged in user."
-      operationId: "updateUser"
-      consumes:
-      - multipart/form-data
-      produces:
-      - "application/xml"
-      - "application/json"
-      parameters:
-      - name: "username"
-        in: "path"
-        description: "name that need to be updated"
-        required: true
-        type: "string"
-      - in: "body"
-        name: "body"
-        description: "Updated user object"
-        required: true
-        schema:
-          $ref: "#/definitions/User"
-      responses:
-        204:
-          description: "Updated"
-        "400":
-          description: "Invalid user supplied"
-        "404":
-          description: "User not found"
-    delete:
-      tags:
-      - "user"
-      summary: "Delete user"
-      description: "This can only be done by the logged in user."
-      operationId: "deleteUser"
-      produces:
-      - "application/xml"
-      - "application/json"
-      parameters:
-      - name: "username"
-        in: "path"
-        description: "The name that needs to be deleted"
-        required: true
-        type: "string"
-      responses:
-        204:
-          description: "Updated"
-        "400":
-          description: "Invalid username supplied"
-        "404":
-          description: "User not found"
 # security 
 securityDefinitions:
   api_key:
