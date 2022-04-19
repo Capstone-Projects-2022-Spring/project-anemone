@@ -1,0 +1,95 @@
+# For more information: https://laravel.com/docs/sail
+version: '3.9'
+services:
+  laravel.test:
+    build:
+      context: ./vendor/laravel/sail/runtimes/8.0
+      dockerfile: Dockerfile
+      args:
+        WWWGROUP: '${WWWGROUP}'
+    image: sail-8.0/app
+    ports:
+      - '80'
+    environment:
+      WWWUSER: '${WWWUSER}'
+      LARAVEL_SAIL: 1
+      VIRTUAL_HOST: apijectappserver.avalonbloom.com
+
+    volumes:
+      - '.:/var/www/html'
+    networks:
+      - sail
+      - default
+    depends_on:
+      - mariadb
+  anemone-app:
+    image: 'electricbluefishproductions/anemone-app:latest'
+    ports:
+      - '80'
+    environment:
+      - VIRTUAL_HOST=anemone.avalonbloom.com
+  meilisearch:
+        image: 'getmeili/meilisearch:latest'
+        ports:
+            - '${FORWARD_MEILISEARCH_PORT:-7700}:7700'
+        volumes:
+            - 'sail-meilisearch:/data.ms'
+        networks:
+            - sail
+        healthcheck:
+            test: ["CMD", "wget", "--no-verbose", "--spider",  "http://localhost:7700/health"]
+            retries: 3
+            timeout: 5s
+  mysql:
+        image: 'mysql/mysql-server:8.0'
+        ports:
+            - '${FORWARD_DB_PORT:-3306}:3306'
+        environment:
+            MYSQL_ROOT_PASSWORD: '${DB_PASSWORD}'
+            MYSQL_ROOT_HOST: "%"
+            MYSQL_DATABASE: '${DB_DATABASE}'
+            MYSQL_USER: '${DB_USERNAME}'
+            MYSQL_PASSWORD: '${DB_PASSWORD}'
+            MYSQL_ALLOW_EMPTY_PASSWORD: 1
+        volumes:
+            - 'sail-mysql:/var/lib/mysql'
+        networks:
+            - sail
+        healthcheck:
+            test: ["CMD", "mysqladmin", "ping", "-p${DB_PASSWORD}"]
+            retries: 3
+            timeout: 5s
+  phpmyadmin:
+    image: phpmyadmin
+    restart: always
+    ports:
+      - 80
+    environment:
+      - PMA_HOST=mariadb
+      - VIRTUAL_HOST=apijectapp-phpmyadmin.avalonbloom.com
+    networks:
+      - default
+      - sail
+
+
+  nginx-proxy:
+    build:
+      context: .
+      dockerfile: Dockerfile.proxysetup
+    restart: always
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+
+networks:
+  default:
+    name: myapp-private
+  sail:
+    driver: bridge
+volumes:
+  sailmariadb:
+    driver: local
+
+

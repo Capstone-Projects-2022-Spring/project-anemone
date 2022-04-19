@@ -1,6 +1,26 @@
 # For more information: https://laravel.com/docs/sail
 version: '3'
 services:
+    nginx-proxy:
+        image: 'jc21/nginx-proxy-manager:latest'
+        restart: unless-stopped
+        ports:
+        - '80:80' # PUBLIC HTTP 
+        - '81:81' # ADMIN DASHBOARD PORT
+        - '443:443' # PUBLIC HTTPS
+        environment:
+            DB_MYSQL_HOST: "mysql"
+            DB_MYSQL_PORT: 3306
+            DB_MYSQL_USER: ${MYSQL_USER}
+            DB_MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+            DB_MYSQL_NAME: ${MYSQL_DATABASE}
+            # Uncomment this if IPv6 is not enabled on your host
+            DISABLE_IPV6: 'true'
+        volumes:
+            - ./data:/data
+            - ./letsencrypt:/etc/letsencrypt
+        depends_on:
+            - mysql
     laravel.test:
         build:
             context: ./vendor/laravel/sail/runtimes/8.1
