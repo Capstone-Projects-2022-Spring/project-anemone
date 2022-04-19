@@ -204,7 +204,6 @@ paths:
         in: "request"
         description: "Logout request for user"
         required: true
-      parameters: []
       responses:
         default:
           description: "OK"
