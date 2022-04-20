@@ -10,7 +10,7 @@ services:
     depends_on:
       - mysql
   scraper:
-    image: electricbluefishproductions/anemone-scraper
+    image: electricbluefishproductions/anemone-scrapper
     ports:
       - '${SCRAPER_PORT}:5000'
     networks:
