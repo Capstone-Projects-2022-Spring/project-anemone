@@ -1,4 +1,3 @@
-import sys
 from bs4 import BeautifulSoup #pip install beautifulsoup4
 import requests #pip install requests
 import mysql.connector #pip install mysql-connector-python
@@ -21,14 +20,17 @@ def scrape(url):
     for footer in soup.select("footer"): #excludes footer tag
         footer.extract()
 
-    title = soup.find("title")
-    header = title.text.strip()
+    try: #Tries to find a page header, makes the name of the file the domain of the website if a header isn't found
+        title = soup.find("title")
+        header = title.text.strip()
+    except:
+        header = extract_domain(url)
 
     return cleanup(soup, url), header
 
 def insert(body, url, user_id, header):
     cnx = mysql.connector.connect(user= os.environ.get('DB_USERNAME'), password= os.environ.get('DB_PASSWORD'),
-                              host= os.environ.get('DB_HOST'),
+                              host= os.environ.get('APP_URL'),
                               database= os.environ.get('DB_DATABASE'))
     cursor = cnx.cursor()
 
@@ -54,8 +56,11 @@ def cleanup(soup, url):
         for result in soup.find_all('section', attrs={"class":"section"}):
             stripped = result.text.strip()
             output.append(stripped)
-    elif(domain == "stackoverflow.com"):
-        for result in soup.find_all('div', attrs={"role":"mainbar"}):
+    elif(domain == "laravel.com"):
+        ul = soup.find("ul") 
+        ul.extract()
+        
+        for result in soup.find_all('div', attrs={"id":"main-content"}):
             stripped = result.text.strip()
             output.append(stripped)
     else:
