@@ -13,7 +13,7 @@ services:
     environment:
       WWWUSER: '${WWWUSER}'
       LARAVEL_SAIL: 1
-      VIRTUAL_HOST: apijectappserver.avalonbloom.com
+      VIRTUAL_HOST: anemone.avalonbloom.com
 
     volumes:
       - '.:/var/www/html'
@@ -59,17 +59,6 @@ services:
             test: ["CMD", "mysqladmin", "ping", "-p${DB_PASSWORD}"]
             retries: 3
             timeout: 5s
-  phpmyadmin:
-    image: phpmyadmin
-    restart: always
-    ports:
-      - 80
-    environment:
-      - PMA_HOST=mariadb
-      - VIRTUAL_HOST=apijectapp-phpmyadmin.avalonbloom.com
-    networks:
-      - default
-      - sail
 
 
   nginx-proxy:
