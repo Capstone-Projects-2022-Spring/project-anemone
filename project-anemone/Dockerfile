@@ -11,12 +11,18 @@ ENV APP_DEBUG=false
 
 RUN docker-php-ext-install bcmath pdo_mysql
 
-COPY --from=build /app /var/www/html
-COPY docker/000-default.conf /etc/apache2/sites-available/000-default.conf
-COPY ./project-anemone/.env /var/www/html/.env
+RUN apt-get update
+RUN apt-get install -y git zip unzip
 
-RUN php artisan config:cache && \
-    php artisan route:cache && \
-    chmod 777 -R /var/www/html/storage/ && \
-    chown -R www-data:www-data /var/wwww/ && \
-    a2enmod rewrite
+COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+# COPY --from=build /app /var/www/html
+# COPY docker/000-default.conf /etc/apache2/sites-available/000-default.conf
+# COPY ./project-anemone/.env /var/www/html/.env
+
+# RUN php artisan config:cache && \
+#     php artisan route:cache && \
+#     chmod 777 -R /var/www/html/storage/ && \
+#     chown -R www-data:www-data /var/wwww/ && \
+#     a2enmod rewrite
+
+EXPOSE 9000
