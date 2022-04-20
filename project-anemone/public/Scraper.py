@@ -4,6 +4,7 @@ import requests #pip install requests
 import mysql.connector #pip install mysql-connector-python
 import datetime
 from urllib.parse import urlparse
+import os
 
 def main(url, user_id):
     body, header = scrape(url)
@@ -26,9 +27,9 @@ def scrape(url):
     return cleanup(soup, url), header
 
 def insert(body, url, user_id, header):
-    cnx = mysql.connector.connect(user='root', password='password',
-                              host='127.0.0.1',
-                              database='project_anemone')
+    cnx = mysql.connector.connect(user= os.environ.get('DB_USERNAME'), password= os.environ.get('DB_PASSWORD'),
+                              host= os.environ.get('DB_HOST'),
+                              database= os.environ.get('DB_DATABASE'))
     cursor = cnx.cursor()
 
     id = cursor.lastrowid
@@ -51,6 +52,10 @@ def cleanup(soup, url):
             output.append(stripped)
     elif(domain == "docs.docker.com"):
         for result in soup.find_all('section', attrs={"class":"section"}):
+            stripped = result.text.strip()
+            output.append(stripped)
+    elif(domain == "stackoverflow.com"):
+        for result in soup.find_all('div', attrs={"role":"mainbar"}):
             stripped = result.text.strip()
             output.append(stripped)
     else:

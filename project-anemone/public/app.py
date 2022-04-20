@@ -1,4 +1,4 @@
-from flask import Flask, request, url_for, render_template
+from flask import Flask, request
 import Scraper
 
 app = Flask(__name__)
