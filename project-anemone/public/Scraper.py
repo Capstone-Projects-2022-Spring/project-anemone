@@ -6,9 +6,9 @@ import datetime
 from urllib.parse import urlparse
 
 def main(url, user_id):
-    body = scrape(url)
+    body, header = scrape(url)
     #print(body)
-    insert(body, url, user_id)
+    insert(body, url, user_id, header)
 
 def scrape(url):
     page = requests.get(url) #load page
@@ -20,9 +20,12 @@ def scrape(url):
     for footer in soup.select("footer"): #excludes footer tag
         footer.extract()
 
-    return cleanup(soup, url)
+    title = soup.find("title")
+    header = title.text.strip()
 
-def insert(body, url, user_id):
+    return cleanup(soup, url), header
+
+def insert(body, url, user_id, header):
     cnx = mysql.connector.connect(user='root', password='password',
                               host='127.0.0.1',
                               database='project_anemone')
@@ -30,8 +33,8 @@ def insert(body, url, user_id):
 
     id = cursor.lastrowid
     now = datetime.datetime.now()
-    add_content = """INSERT INTO documents (id, created_at, updated_at, user_id, path, name, url, file_type) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)"""
-    values = (id, now, now, user_id, body, url, url, "txt") #edit the 9 here to any user_id value currently stored in your user table
+    add_content = """INSERT INTO documents (id, created_at, updated_at, user_id, name, url, file_type, url_data) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)"""
+    values = (id, now, now, user_id, header, url, "txt", body) #edit the 9 here to any user_id value currently stored in your user table
 
     cursor.execute(add_content, values)
     cnx.commit()
