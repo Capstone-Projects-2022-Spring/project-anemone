@@ -9,6 +9,8 @@ services:
       - sail
     depends_on:
       - mysql
+    volumes:
+      - '/home/ian/anemone.env:/app/.env'
   scraper:
     image: electricbluefishproductions/anemone-scrapper
     ports:
