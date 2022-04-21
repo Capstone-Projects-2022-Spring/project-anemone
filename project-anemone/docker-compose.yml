@@ -32,6 +32,8 @@ services:
             - '${SCRAPER_PORT}:5000'
         networks:
             - sail
+        volumes:
+            - './.env:/app/.env'
     mysql:
         image: 'mysql/mysql-server:8.0'
         ports:

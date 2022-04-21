@@ -1,4 +1,4 @@
-from flask import Flask, request, url_for, render_template
+from flask import Flask, request
 import Scraper
 
 app = Flask(__name__)
@@ -8,7 +8,7 @@ def scrape():
     url = request.form['url']
     user_id = request.form['user_id']
     Scraper.main(url, user_id)
-    return "200"
+    return "201"
 
 if __name__ == "__main__":
-    app.run(debug=False, host= '0.0.0.0')
+    app.run(debug=True, host= '0.0.0.0')
