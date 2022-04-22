@@ -23,7 +23,17 @@ services:
             - sail
         depends_on:
             - mysql
-
+    scraper:
+        image: electricbluefishproductions/anemone-scrapper
+        build:
+            context: ../
+            dockerfile: ./project-anemone/public/Dockerfile
+        ports:
+            - '${SCRAPER_PORT}:5000'
+        networks:
+            - sail
+        volumes:
+            - './.env:/app/.env'
     mysql:
         image: 'mysql/mysql-server:8.0'
         ports:
