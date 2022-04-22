@@ -8,7 +8,7 @@ import os
 def main(url, user_id):
     body, header = scrape(url)
     #print(body)
-    insert(body, url, user_id, header)
+    return insert(body, url, user_id, header)
 
 def scrape(url):
     page = requests.get(url) #load page
@@ -44,6 +44,8 @@ def insert(body, url, user_id, header):
 
     cursor.close()
     cnx.close()
+
+    return url, body
 
 def cleanup(soup, url):
     domain = extract_domain(url)
