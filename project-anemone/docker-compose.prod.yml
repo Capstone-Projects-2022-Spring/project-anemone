@@ -10,6 +10,7 @@ services:
     depends_on:
       - mysql
     volumes:
+      - '${FILES}:/app/public/images'
       - '/home/ian/anemone.env:/app/.env'
   scraper:
     image: electricbluefishproductions/anemone-scrapper
