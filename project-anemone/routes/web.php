@@ -1,7 +1,6 @@
 <?php
 
-// use App\Http\Controllers\DocumentController;
-// use App\Http\Controllers\AnnotationController;
+use App\Http\Controllers\SearchController;
 use App\Http\Controllers\DocumentController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\RegisterController;
@@ -24,4 +23,10 @@ use Illuminate\Http\Request;
 */
 Route::get('/', function () {
     return view('welcome');
+});
+
+Route::group([SearchController::class],function(){
+    Route::get('search', [SearchController::class, 'index']);
+    Route::get('autocomplete', [SearchController::class, 'autocomplete'])->name('autocomplete');
+    
 });
