@@ -1,5 +1,5 @@
-flask=2.1.1
-werkzeug=2.1.1
-beautifulsoup4=4.10.0
-requests=2.27.1
-mysql-connector-python=8.0.28
+flask==2.1.1
+werkzeug==2.1.1
+beautifulsoup4==4.10.0
+requests==2.27.1
+mysql-connector-python==8.0.28
