@@ -1,11 +1,24 @@
 # Anemone
 
 ## Project Overview
-Anemone is an application that centralizes users' documentation queries. A user will be able to search for references concurrently with various active applications. For unknown queries, default results will direct the user to sites like Google or Stackoverflow. The system will automatically save all query results. In otherwords we want Anemone to coexist while a user is working in any other applicaiton.
-Our software is primarily designed to help people who are interested in collection information. The utmost intention of the software is to make it easy for people to query the web without going down rabbit holes. Users can create personal accounts through which they can store information, and log in to the same account to display historically stored information if the device is changed. 
+Anemone is an application that centralizes users' documentation queries. 
+A user will be able to collect and retrieve references concurrently with various active applications. 
+In other words we want Anemone to coexist while a user is working in any other application.
+Our software is primarily designed to help people who are interested in collecting information. 
+The utmost intention of the software is to assist efficient and effective experiences for people to query personal results. 
+Users can create personal accounts through which they can store information and display historically stored information if the device is changed. 
 
 ## Contrubutors
 *C. Sun, F. Imadegbelo, F. Johnston, T. Rowe, W. Zhai*
+
+### Components
+Our system has been abstracted into various containers
+-- Access our [React App](https://anemone.avalonbloom.com/)
+-- Access our [API](https://anemone.avalonbloom.com/api/)
+
+### Known Bugs
+1. The `.env` file isn’t being honored by the api and scraper container during deployment.
+
 
 ## Final Product
 #### Since Apple removed the ability to export shortcuts you can view the app [here](https://www.icloud.com/shortcuts/4aa87c403914408ea2f3024ac5fcc8f5)

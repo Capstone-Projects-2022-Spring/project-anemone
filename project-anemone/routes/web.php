@@ -1,16 +1,6 @@
 <?php
 
-// use App\Http\Controllers\DocumentController;
-// use App\Http\Controllers\AnnotationController;
-use App\Http\Controllers\DocumentController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Auth\RegisterController;
-use App\Http\Controllers\Auth\LoginController;
-use App\Http\Controllers\Auth\LogoutController;
-use App\Http\Controllers\IndexController;
-use App\Http\Controllers\DashboardController;
-use Illuminate\Foundation\Auth\EmailVerificationRequest;
-use Illuminate\Http\Request;
 
 /*
 |--------------------------------------------------------------------------

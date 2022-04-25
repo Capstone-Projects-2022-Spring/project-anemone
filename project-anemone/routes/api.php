@@ -3,12 +3,10 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DocumentController;
+use App\Http\Controllers\SearchController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\LogoutController;
-use App\Http\Controllers\IndexController;
-use App\Http\Controllers\DashboardController;
-use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use App\Http\Controllers\Auth\VerifyEmailController;
 
 /*
@@ -31,10 +29,6 @@ Route::group([
     Route::apiResource('anemone', 'ApiController');
 });
 
-/*Route::post('/register', function(Request $request){
-  return RegisterController::register_user($request);
-});*/
-
 //Authorization
 Route::post('/register', [RegisterController::class, 'register_user']);
 
@@ -45,6 +39,8 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
   Route::post('/logout', [LogoutController::class, 'log_out']);
   Route::post('/documents', [DocumentController::class, 'upload']);
   Route::get('/documents/{user_id}/{id}', [DocumentController::class, 'display']);
+    Route::get('/search', [SearchController::class, 'index']);
+    Route::get('/autocomplete', [SearchController::class, 'autocomplete'])->name('autocomplete');
 });
 
 // Verify email
