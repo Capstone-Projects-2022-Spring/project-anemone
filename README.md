@@ -6,7 +6,6 @@ A user will be able to collect and retrieve references concurrently with various
 In other words we want Anemone to coexist while a user is working in any other application.
 Our software is primarily designed to help people who are interested in collecting information. 
 The utmost intention of the software is to assist efficient and effective experiences for people to query personal results. 
-Users can create personal accounts through which they can store information and display historically stored information if the device is changed. 
 
 ## Contrubutors
 *C. Sun, F. Imadegbelo, F. Johnston, T. Rowe, W. Zhai*
