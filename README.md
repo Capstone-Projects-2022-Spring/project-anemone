@@ -16,6 +16,9 @@ Our system has been abstracted into various containers
 -- Access our [React App](https://anemone.avalonbloom.com/)
 -- Access our [API](https://anemone.avalonbloom.com/api/)
 
+### Known Bugs
+1. The `.env` file isn’t being honored by the api and scraper container during deployment.
+
 
 ## Final Product
 #### Since Apple removed the ability to export shortcuts you can view the app [here](https://www.icloud.com/shortcuts/4aa87c403914408ea2f3024ac5fcc8f5)
